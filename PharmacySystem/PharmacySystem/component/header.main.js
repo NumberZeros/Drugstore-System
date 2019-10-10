@@ -8,7 +8,6 @@ export default class Header extends Component{
              <Text style={styles.text } >Hello, </Text>
              <Button  title="Login" color="#86C232" width={10}/>
              <Text style={styles.text } >What can I do for you ?</Text>
-             <Text style={styles.text } >What can I do for you ?</Text>
              <TextInput style={styles.input } placeholder="Searching..." />
              <Button  title="Prescription" color="#86C232" />
              <Button  title="Searching" color="#86C232"/>
