@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-
+import { StyleSheet, View } from 'react-native';
+import Header from './component/header.main';
+import Footer from './component/footer.main';
 export default class App extends Component {
   render() {
     return (
-
       <View style={styles.container}>
-        <View>
-          <View style={styles.btn}>
-            <Button  title='Thanh tho' />
-          </View>
-          <View>
-            <Text>Hello ngoc hien</Text>
-          </View>
-          <View>
-            <Text>Hello ngoc hien</Text>
-          </View>
-          <View>
-            <Text>Hello ngoc hien</Text>
-          </View>
+        <View style={styles.Header}>
+          <Header />
+          {/* <View>
+            <Text>heolo</Text>
+          </View> */}
+          <Footer  />
         </View>
+
       </View>
     );
   }
@@ -29,11 +23,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "flex-start",
+    marginVertical:30,
+    elevation: 2
   },
-  btn:{
-    height: 100,
-    width: 300,
+  Header: {
+    marginHorizontal: 10,
   }
 });
