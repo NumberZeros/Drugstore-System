@@ -1,39 +1,56 @@
-import React,{ Component } from 'react';
-import { StyleSheet, Text, View,Button,TextInput } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+import { AntDesign,
+        MaterialIcons, 
+        MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default class Footer extends Component{
- render(){
-     const iconHome='../icon/home.svg';
-     const iconManage='../icon/manage.svg';
-     const iconMessager='../icon/messager.svg';
-     const iconUser='../icon/user.svg';
-     return (
-         <View style={styles.footer}>
-             <Button style={styles.btnHome} title="" />
-             <Button style={styles.btnManage} title=""/>
-             <Button style={styles.btnMessager} title=""/>
-             <Button style={styles.btnUser} title=""/>
-         </View>
-     )
- }
+export default class Footer extends Component {
+    render() {
+        return (
+            <View style={styles.footer}>
+                <View style={styles.btnHome}>
+                <AntDesign name="home" size={100} color="#86C232" />
+                </View>
+                <View style={styles.btnManage}>
+                    <MaterialIcons name="dashboard" size={100} color="#86C232" />
+                </View>
+                <View style={styles.btnMessager}>
+                    <AntDesign name="message1" size={100} color="#86C232" />
+                </View>
+                <View style={styles.btnUser}>
+                    <MaterialCommunityIcons name="account" size={100} color="#86C232" />
+                </View>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-    footer:{
-        flexDirection:"row",
-        
-        height:100
+    footer: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        width: 580,
+        borderTopWidth: 3,
+        borderTopStartRadius: 10,
+        borderTopColor: "#6B6E70",
+        paddingVertical: 10,
+        marginBottom: 15,
+        height: 100
     },
-    btnHome:{
-        backgroundColor:'#00AA00',
+    btnHome: {
+        width: 100,
+        height: 100,
     },
-    btnManage:{
-        backgroundColor:'#00BB30',
+    btnManage: {
+        width: 100,
+        height: 100,
     },
-    btnMessager:{
-        backgroundColor:'#00CC80',
+    btnMessager: {
+        width: 100,
+        height: 100,
     },
-    btnUser:{
-        backgroundColor:'#00FF50',
+    btnUser: {
+        width: 100,
+        height: 100,
     },
 })

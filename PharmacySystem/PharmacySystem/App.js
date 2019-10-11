@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View,Text } from 'react-native';
 import Header from './component/header.main';
 import Footer from './component/footer.main';
 export default class App extends Component {
@@ -8,9 +8,9 @@ export default class App extends Component {
       <View style={styles.container}>
         <View style={styles.Header}>
           <Header />
-          {/* <View>
+          <View style={styles.Body}>
             <Text>heolo</Text>
-          </View> */}
+          </View>
           <Footer  />
         </View>
 
@@ -22,12 +22,21 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#222629',
     justifyContent: "flex-start",
-    marginVertical:30,
+    marginTop: 25,
     elevation: 2
   },
   Header: {
+    flex:1,
+    marginHorizontal: 10,
+  },
+  Body:{
+    flex:1
+  },
+  Footer:{
+    backgroundColor:'#EEEEEE',
     marginHorizontal: 10,
   }
+
 });
