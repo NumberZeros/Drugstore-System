@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View,Text } from 'react-native';
 import Header from './component/header.main';
 import Footer from './component/footer.main';
+
+
 export default class App extends Component {
   render() {
     return (
@@ -9,7 +11,7 @@ export default class App extends Component {
         <View style={styles.Header}>
           <Header />
           <View style={styles.Body}>
-            <Text>heolo</Text>
+            <Text>hello</Text>
           </View>
           <Footer  />
         </View>
@@ -34,9 +36,5 @@ const styles = StyleSheet.create({
   Body:{
     flex:1
   },
-  Footer:{
-    backgroundColor:'#EEEEEE',
-    marginHorizontal: 10,
-  }
 
 });
