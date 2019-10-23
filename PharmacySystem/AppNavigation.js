@@ -3,8 +3,12 @@ import Home from './screen/Home';
 import Caterogies from './screen/caterogies';
 const RootStack = createStackNavigator(
   {
-    Home: Home,
-    Details: Caterogies,
+    Home: {
+      screen:Home,
+    },
+    Details: {
+      screen:Caterogies,
+    }
   },
   {
     initialRouteName: 'Home',

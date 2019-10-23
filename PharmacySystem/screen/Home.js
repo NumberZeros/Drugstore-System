@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
-import {View,Button} from 'react-native';
+import {View, Button, Alert} from 'react-native';
+
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import Header from '../component/Header.main';
 export default class Home extends Component {
   static navigationOptions = {
     title: 'Home',
+    alignItems: 'center',
     headerStyle: {
-      backgroundColor: '#86C232',
+      backgroundColor: '#474B4F',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'bold',
+      marginLeft: wp('45%'),
     },
   };
   constructor(props) {
@@ -22,21 +26,24 @@ export default class Home extends Component {
     this.callbackHandlerFunction = this.callbackHandlerFunction.bind(this);
   }
 
-  callbackHandlerFunction = clickStatus => {
+  callbackHandlerFunction = (isClick, text) => {
     this.setState({
-      isClick: clickStatus,
+      isClick,
+      value: text,
     });
   };
   render() {
+    const {isClick, value} = this.state;
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View>
           <Header
             handleClickParent={this.callbackHandlerFunction}
-            data={this.state.isClick}
+            data={isClick}
           />
-          {this.state.isClick === true &&
-            this.props.navigation.navigate('Details')}
+          {isClick === true &&
+            value !== '' &&
+            this.props.navigation.navigate('Details', {value: value})}
         </View>
       </View>
     );

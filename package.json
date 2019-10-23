@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-native-responsive-fontsize": "^0.2.3"
+  },
+  "devDependencies": {
+    "react-native-button": "^2.4.0"
+  }
+}
