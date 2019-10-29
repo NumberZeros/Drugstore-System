@@ -1,0 +1,6 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "react-devtools": "^4.2.0"
+  }
+}

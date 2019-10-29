@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {View, TextInput, Alert, Text, StyleSheet, Keyboard} from 'react-native';
+import {View, TextInput, StyleSheet, Keyboard} from 'react-native';
 
 import Button from 'react-native-button';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import _ from 'lodash';
+
+import Item from '../component/Item.catergories';
 
 export default class Caterogies extends Component {
   constructor(props) {
@@ -103,18 +105,9 @@ export default class Caterogies extends Component {
     };
   }
 
-  list = () => {
-    const {value} = this.state;
-    const values = value.map((item, index) => <Text>{item}</Text>);
-    Alert.alert(values.toString());
-  };
   render() {
     const {navigation} = this.props;
-    // const Data = value.map(item => (
-    //   <View>
-    //     <Text>item</Text>
-    //   </View>
-    // ));
+    const {value} = this.state;
     return (
       <View>
         <View style={styles.fillter}>
@@ -128,13 +121,12 @@ export default class Caterogies extends Component {
             // autoFocus={true}                    //tự động điều hướng vào khung
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
           />
-          {/* <View>
-            <Data />
-          </View> */}
-          <Button style={styles.fill} onPress={this.list}>
-            {' '}
-            Fillter
-          </Button>
+          <Button style={styles.fill}> Fillter</Button>
+        </View>
+        <View>
+          {value.map(value => (
+            <Item data={value} />
+          ))}
         </View>
       </View>
     );

@@ -3,7 +3,7 @@ import {View, Button, Alert} from 'react-native';
 
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import Header from '../component/Header.main';
+import Header from '../component/Header.home';
 export default class Home extends Component {
   static navigationOptions = {
     title: 'Home',
