@@ -14,7 +14,10 @@ export default class Item extends Component {
       <View style={styles.item}>
         <View style={styles.image}>
           <TouchableOpacity>
-            <Text>Photo</Text>
+            <Image
+              style={{width: wp('30%'), height: hp('18%')}}
+              source={{uri: `${image}`}}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.content}>
@@ -52,9 +55,10 @@ const styles = StyleSheet.create({
     // backgroundColor: '#236518',
   },
   image: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // flexGrow: 1,
+    borderColor: '#AAAAAA',
+    borderWidth: 1,
+    width: wp('30%'),
     // backgroundColor: '#BBB518',
   },
   content: {

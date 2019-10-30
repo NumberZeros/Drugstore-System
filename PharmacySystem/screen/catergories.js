@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TextInput, StyleSheet, Keyboard} from 'react-native';
+import {View, TextInput, StyleSheet, Keyboard, FlatList} from 'react-native';
 
 import Button from 'react-native-button';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -15,7 +15,7 @@ export default class Caterogies extends Component {
       value: [
         {
           Id: 1,
-          ProductName: 'Coffee - Espresso',
+          ProductName: 'Coffee ',
           DrugStore: 'Weild',
           Price: '$4.21',
           image: 'http://dummyimage.com/100x100.png/ff4444/ffffff',
@@ -23,7 +23,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 2,
-          ProductName: 'Ice Cream Bar - Oreo Cone',
+          ProductName: 'Ice Cream Bar',
           DrugStore: 'Gehrels',
           Price: '$50.42',
           image: 'http://dummyimage.com/100x100.png/dddddd/000000',
@@ -31,7 +31,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 3,
-          ProductName: 'Horseradish Root',
+          ProductName: 'Horseradish',
           DrugStore: 'Newport',
           Price: '$7.56',
           image: 'http://dummyimage.com/100x100.png/5fa2dd/ffffff',
@@ -39,7 +39,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 4,
-          ProductName: 'Salmon - Whole, 4 - 6 Pounds',
+          ProductName: 'Salmon',
           DrugStore: 'Kubacki',
           Price: '$51.40',
           image: 'http://dummyimage.com/100x100.png/cc0000/ffffff',
@@ -47,7 +47,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 5,
-          ProductName: 'Apple - Custard',
+          ProductName: 'Apple',
           DrugStore: 'Sailor',
           Price: '$74.06',
           image: 'http://dummyimage.com/100x100.png/ff4444/ffffff',
@@ -55,7 +55,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 6,
-          ProductName: 'Paper Towel Touchless',
+          ProductName: 'Paper',
           DrugStore: 'Poulden',
           Price: '$72.88',
           image: 'http://dummyimage.com/100x100.png/dddddd/000000',
@@ -63,7 +63,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 7,
-          ProductName: 'Pepper - Chillies, Crushed',
+          ProductName: 'Pepper',
           DrugStore: 'Von Brook',
           Price: '$64.42',
           image: 'http://dummyimage.com/100x100.png/ff4444/ffffff',
@@ -71,7 +71,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 8,
-          ProductName: 'Sorrel - Fresh',
+          ProductName: 'Sorrel',
           DrugStore: 'Asquez',
           Price: '$87.07',
           image: 'http://dummyimage.com/100x100.png/dddddd/000000',
@@ -79,7 +79,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 9,
-          ProductName: 'Brownies - Two Bite, Chocolate',
+          ProductName: 'Brownies',
           DrugStore: 'Kellet',
           Price: '$69.94',
           image: 'http://dummyimage.com/100x100.png/cc0000/ffffff',
@@ -87,7 +87,7 @@ export default class Caterogies extends Component {
         },
         {
           Id: 10,
-          ProductName: 'Croissants Thaw And Serve',
+          ProductName: 'Croissants',
           DrugStore: 'McMurtyr',
           Price: '$33.42',
           image: 'http://dummyimage.com/100x100.png/ff4444/ffffff',
@@ -95,39 +95,67 @@ export default class Caterogies extends Component {
         },
         {
           Id: 11,
-          ProductName: 'Oil - Truffle, Black',
+          ProductName: 'a',
           DrugStore: 'Anthona',
           Price: '$16.10',
           image: 'http://dummyimage.com/100x100.png/dddddd/000000',
           Star: 11,
         },
       ],
+      filterData: '',
     };
   }
 
+  filteData = text => {
+    const {value} = this.state;
+    const revalue = value;
+    if (text !== '') {
+      const values = revalue.filter(
+        item =>
+          item.ProductName.toLowerCase()
+            .trim()
+            .indexOf(
+              text
+                .toString()
+                .toLowerCase()
+                .trim(),
+            ) !== -1,
+      );
+      this.setState({
+        value: values,
+        filteData: text,
+      });
+    } else {
+      console.log(value);
+      this.setState({
+        value: value,
+        filteData: text,
+      });
+    }
+  };
   render() {
     const {navigation} = this.props;
-    const {value} = this.state;
+    const {value, filterData} = this.state;
     return (
       <View>
         <View style={styles.fillter}>
           <TextInput
             style={styles.input}
             placeholder={navigation.getParam('value')}
-            onChangeText={this.Change}
+            onChangeText={this.filteData}
             // onKeyPress={this.enter}
             returnKeyType="search"
-            value={this.state.text}
+            value={this.filterData}
             // autoFocus={true}                    //tự động điều hướng vào khung
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
           />
           <Button style={styles.fill}> Fillter</Button>
         </View>
-        <View>
-          {value.map(value => (
-            <Item data={value} />
-          ))}
-        </View>
+        <FlatList
+          data={value}
+          renderItem={({item}) => <Item data={item} />}
+          keyExtractor={item => item.Id}
+        />
       </View>
     );
   }
@@ -142,7 +170,7 @@ const styles = StyleSheet.create({
     fontSize: wp('5%'),
     borderWidth: 1,
     opacity: 0.5,
-    color: '#FFFFFF',
+    color: '#474b4f',
     borderRadius: 10,
     paddingLeft: 10,
     borderColor: '#6B6E70',
