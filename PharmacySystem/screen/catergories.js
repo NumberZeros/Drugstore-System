@@ -107,45 +107,56 @@ export default class Caterogies extends Component {
   }
 
   filteData = text => {
-    const {value} = this.state;
-    const revalue = value;
-    if (text !== '') {
-      const values = revalue.filter(
-        item =>
-          item.ProductName.toLowerCase()
-            .trim()
-            .indexOf(
-              text
-                .toString()
-                .toLowerCase()
-                .trim(),
-            ) !== -1,
-      );
-      this.setState({
-        value: values,
-        filteData: text,
-      });
-    } else {
-      console.log(value);
-      this.setState({
-        value: value,
-        filteData: text,
-      });
-    }
+
+    const value = [...this.state.value];
+    const values = value.filter(
+      item =>
+        item.ProductName.toLowerCase()
+          .trim()
+          .indexOf(
+            text
+              .toString()
+              .toLowerCase()
+              .trim(),
+          ) !== -1,
+    );
+    this.setState({
+      value: values,
+      filteData: text,
+    });
   };
-  render() {
+
+  componentWillMount() {
     const {navigation} = this.props;
+    const filterData = navigation.getParam('value');
+    const value = [...this.state.value];
+    const values = value.filter(
+      item =>
+        item.ProductName.toLowerCase()
+          .trim()
+          .indexOf(
+            filterData
+              .toString()
+              .toLowerCase()
+              .trim(),
+          ) !== -1,
+    );
+    this.setState({
+      value: values,
+      filteData: filterData,
+    });
+  }
+  render() {
     const {value, filterData} = this.state;
     return (
       <View>
         <View style={styles.fillter}>
           <TextInput
             style={styles.input}
-            placeholder={navigation.getParam('value')}
-            onChangeText={this.filteData}
+            // onChangeText={this.filteData}
             // onKeyPress={this.enter}
             returnKeyType="search"
-            value={this.filterData}
+            value={filterData}
             // autoFocus={true}                    //tự động điều hướng vào khung
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
           />
