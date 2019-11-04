@@ -20,12 +20,20 @@ export default class Header extends Component {
   Change = text => {
     this.setState({text});
   };
+  login = () => {
+    const login = true;
+    this.props.LoginParent(login);
+  };
   render() {
     return (
       <View style={styles.header}>
         <View style={styles.accout}>
           <Text style={[styles.text, styles.hello]}>Hello, </Text>
-          <Button style={[styles.btn, styles.login]} color="#86C232" width={10}>
+          <Button
+            style={[styles.btn, styles.login]}
+            color="#86C232"
+            width={10}
+            onPress={this.login}>
             Login
           </Button>
         </View>

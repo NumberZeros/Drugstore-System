@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Button, Alert} from 'react-native';
+import {View} from 'react-native';
 
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
@@ -22,6 +22,7 @@ export default class Home extends Component {
     this.state = {
       isClick: false,
       value: '',
+      login: false,
     };
     this.callbackHandlerFunction = this.callbackHandlerFunction.bind(this);
   }
@@ -32,15 +33,24 @@ export default class Home extends Component {
       value: text,
     });
   };
+
+  login = text => {
+    this.setState({
+      login: text,
+    });
+  };
+
   render() {
-    const {isClick, value} = this.state;
+    const {isClick, value, login} = this.state;
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View>
           <Header
             handleClickParent={this.callbackHandlerFunction}
+            LoginParent={this.login}
             data={isClick}
           />
+          {login === true && this.props.navigation.navigate('Login')}
           {isClick === true &&
             value !== '' &&
             this.props.navigation.navigate('Details', {value: value})}
