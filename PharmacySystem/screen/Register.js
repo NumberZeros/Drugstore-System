@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {
   View,
   TextInput,
-  Image,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import Button from 'react-native-button';
@@ -13,6 +13,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import firebasesApp from '../component/firebaseConfig';
 
 export default class Register extends Component {
   static navigationOptions = {
@@ -31,11 +33,69 @@ export default class Register extends Component {
     super(props);
     this.state = {
       value: {
-        user: '',
+        email: '',
         passWord: '',
       },
     };
   }
+
+  changePass = text => {
+    const {email, passWord} = this.state.value;
+    this.setState({
+      value: {
+        email,
+        passWord: text,
+      },
+    });
+  };
+
+  changeEmail = text => {
+    const {email, passWord} = this.state.value;
+    this.setState({
+      value: {
+        email: text,
+        passWord,
+      },
+    });
+  };
+
+  RegisterAccount = () => {
+    const {email, passWord} = this.state.value;
+    console.log(email, passWord);
+    firebasesApp
+      .auth()
+      .createUserWithEmailAndPassword(email, passWord)
+      .then(() =>
+        Alert.alert(
+          'Đăng nhập thành công' + `${email}`,
+          'Cám ơn quí kháckh',
+          [
+            {
+              text: 'Cancel',
+              onPress: () =>
+                this.setState({
+                  value: {
+                    email: '',
+                    passWord: '',
+                  },
+                }),
+              style: 'cancel',
+            },
+            {
+              text: 'OK',
+              onPress: () => this.props.navigation.navigate('Login'),
+            },
+          ],
+          {cancelable: false},
+        ),
+      )
+      .catch(function(error) {
+        Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng kí');
+      });
+  };
+  test = () => {
+    console.log(this.state.value.email, this.state.value.passWord);
+  };
   render() {
     const {value} = this.state;
     return (
@@ -45,19 +105,26 @@ export default class Register extends Component {
         </TouchableOpacity>
         <TextInput
           style={styles.input}
-          keyboardType="email-address"
           placeholder="Email"
-          value={value.user}
-          //   autoFocus={true}
+          onChangeText={this.changeEmail}
+          value={value.email}
         />
-        <TextInput
-          style={styles.input}
-          keyboardType="visible-password"
-          placeholder="PassWord"
-          value={value.passWord}
-        />
+        {value.email !== '' && (
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder="PassWord"
+            onChangeText={this.changePass}
+            value={value.passWord}
+          />
+        )}
         <View style={styles.formatBtn}>
-          <Button style={styles.btn}> Register </Button>
+          <Button style={styles.btn} onPress={this.RegisterAccount}>
+            Register
+          </Button>
+          <Button style={styles.btn} onPress={this.test}>
+            test
+          </Button>
         </View>
       </View>
     );
@@ -80,7 +147,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     opacity: 0.5,
     width: wp('80%'),
-    color: '#FFFFFF',
+    color: '#474b4f',
     borderRadius: 10,
     paddingLeft: 10,
     borderColor: '#6B6E70',
@@ -98,7 +165,5 @@ const styles = StyleSheet.create({
   },
   headIcon: {
     marginTop: hp('5%'),
-    // width: wp('40%'),
-    // height: hp('20%'),
   },
 });

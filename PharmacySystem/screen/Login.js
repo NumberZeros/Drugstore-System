@@ -36,14 +36,30 @@ export default class Login extends Component {
       <View style={styles.login}>
         <TextInput
           style={styles.input}
-          placeholder="User"
+          keyboardType="email-address"
+          placeholder="Email"
           value={value.user}
-          // autoFocus={true}
+          //   autoFocus={true}
+          onChangeText={text =>
+            this.setState({
+              value: {
+                user: text,
+              },
+            })
+          }
         />
         <TextInput
           style={styles.input}
+          secureTextEntry={true}
           placeholder="PassWord"
           value={value.passWord}
+          onChangeText={text =>
+            this.setState({
+              value: {
+                passWord: text,
+              },
+            })
+          }
         />
         <View style={styles.formatBtn}>
           <Button style={styles.btn}> Login </Button>
@@ -75,7 +91,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     opacity: 0.5,
     width: wp('80%'),
-    color: '#FFFFFF',
+    color: '#474b4f',
     borderRadius: 10,
     paddingLeft: 10,
     borderColor: '#6B6E70',
