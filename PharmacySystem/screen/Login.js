@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {View, TextInput, Text, StyleSheet} from 'react-native';
+import {View, TextInput, Text, StyleSheet, Alert} from 'react-native';
 
 import Button from 'react-native-button';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+
+import firebasesApp from '../component/firebaseConfig';
 
 export default class Login extends Component {
   static navigationOptions = {
@@ -24,12 +26,32 @@ export default class Login extends Component {
     super(props);
     this.state = {
       value: {
-        user: '',
+        email: '',
         passWord: '',
       },
       creactaccount: false,
     };
   }
+  login = ()=>{
+    const {email,passWord}=this.state.value;
+    firebasesApp.auth().signInWithEmailAndPassword(email, passWord)
+    .then(()=>(
+      Alert.alert(
+        'Đăng nhập thành công ' + `${email}`,
+        'Cám ơn quí kháckh',
+        [
+          {
+            text: 'OK',
+            onPress: () => this.props.navigation.navigate('Home'),
+          },
+        ],
+        {cancelable: false},
+    )))
+    .catch(function(error) {
+      Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng nhập')
+    });
+  }
+
   render() {
     const {value, creactaccount} = this.state;
     return (
@@ -38,12 +60,13 @@ export default class Login extends Component {
           style={styles.input}
           keyboardType="email-address"
           placeholder="Email"
-          value={value.user}
+          value={value.email}
           //   autoFocus={true}
           onChangeText={text =>
             this.setState({
               value: {
-                user: text,
+                email: text,
+                password: value.passWord,
               },
             })
           }
@@ -56,13 +79,14 @@ export default class Login extends Component {
           onChangeText={text =>
             this.setState({
               value: {
+                email: value.email,
                 passWord: text,
               },
             })
           }
         />
         <View style={styles.formatBtn}>
-          <Button style={styles.btn}> Login </Button>
+          <Button style={styles.btn} onPress={this.login}> Login </Button>
           <Button
             style={styles.btn}
             onPress={() => this.setState({creactaccount: true})}>

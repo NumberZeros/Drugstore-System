@@ -67,7 +67,7 @@ export default class Register extends Component {
       .createUserWithEmailAndPassword(email, passWord)
       .then(() =>
         Alert.alert(
-          'Đăng nhập thành công' + `${email}`,
+          `Tạo ${email} thành công `,
           'Cám ơn quí kháckh',
           [
             {
