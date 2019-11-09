@@ -165,7 +165,7 @@ export default class Caterogies extends Component {
         <FlatList
           data={value}
           renderItem={({item}) => <Item data={item} />}
-          keyExtractor={item => item.Id}
+          keyExtractor={item => item.Id.toString()}
         />
       </View>
     );
