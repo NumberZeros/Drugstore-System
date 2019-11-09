@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
-import {View, TextInput, StyleSheet, Keyboard, FlatList,Text} from 'react-native';
+import React from 'react';
+import {View, TextInput, StyleSheet, FlatList} from 'react-native';
 import Button from 'react-native-button';
-import {widthPercentageToDP as wp,heightPercentageToDP as hp,} from 'react-native-responsive-screen';
-import _ from 'lodash';
 import Item from '../component/Item.catergories';
 
 export default class Manager extends React.Component {
@@ -10,7 +8,7 @@ export default class Manager extends React.Component {
     super(props);
     this.state = {
       // value: [{name: 'hien'}],
-      value:  [
+      value: [
         {
           Id: 1,
           ProductName: 'Coffee ',
@@ -100,23 +98,20 @@ export default class Manager extends React.Component {
           Star: 11,
         },
       ],
-      
     };
   }
-  
+
   render() {
     const {value} = this.state;
-    
-    return ( 
+
+    return (
       <View style={styles.container}>
         <TextInput
-        placeholder="Searching..."
-        onChangeText={this.Change}
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          placeholder="Searching..."
+          onChangeText={this.Change}
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
-        <Button>    
-            Add
-        </Button>
+        <Button>Add</Button>
         <FlatList
           data={value}
           renderItem={({item}) => <Item data={item} />}
@@ -125,11 +120,10 @@ export default class Manager extends React.Component {
       </View>
     );
   }
-  }
-  const styles = StyleSheet.create({
-    container: {
-     flex: 1,
-     paddingTop: 22
-    },
-    
-  })
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 22,
+  },
+});
