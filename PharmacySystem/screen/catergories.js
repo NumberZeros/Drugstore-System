@@ -3,7 +3,6 @@ import {View, TextInput, StyleSheet, Keyboard, FlatList} from 'react-native';
 
 import Button from 'react-native-button';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import _ from 'lodash';
 
 import Item from '../component/Item.catergories';
 
@@ -107,7 +106,6 @@ export default class Caterogies extends Component {
   }
 
   filteData = text => {
-
     const value = [...this.state.value];
     const values = value.filter(
       item =>

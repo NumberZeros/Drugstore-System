@@ -1,7 +1,8 @@
+import React from 'react';
+
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import React from 'react';
 
 import Home from './screen/Home';
 import Caterogies from './screen/catergories';
@@ -10,6 +11,7 @@ import Register from './screen/Register';
 import Manager from './screen/Manager';
 import Messeger from './screen/Messeger';
 import User from './screen/User';
+import ManagerUser from './screen/Manager.user';
 
 const RootStack = createStackNavigator(
   {
@@ -17,6 +19,7 @@ const RootStack = createStackNavigator(
     Details: {screen: Caterogies},
     Login: {screen: Login},
     Register: {screen: Register},
+    ManagerUser: {screen: ManagerUser},
   },
   {
     initialRouteName: 'Home',
@@ -46,9 +49,7 @@ export default createBottomTabNavigator(
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
     }),
-    tabBarPosition: 'bottom',
     tabBarOptions: {
-      activeTintColor: 'blue',
       labelStyle: {
         fontSize: 15,
       },
