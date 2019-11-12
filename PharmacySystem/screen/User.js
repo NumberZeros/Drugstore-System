@@ -8,36 +8,55 @@ import {
 } from 'react-native-responsive-screen';
 
 export default class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: false,
+      idAcount: '',
+      gmail: '',
+    };
+  }
   render() {
+    const {login, idAcount, gmail} = this.state;
     return (
       <View style={styles.user}>
-        <View style={styles.locatedBtn}>
+        {login === false ? (
           <Button
-            style={[styles.btn, styles.login]}
-            onPress={() => this.props.navigation.navigate('ManagerUser')}>
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate('Login')}>
             Login
           </Button>
-        </View>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          Manager User
-        </Button>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          My WishList
-        </Button>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          DrugStore Mode
-        </Button>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          Change Password
-        </Button>
+        ) : (
+          <View>
+            <View style={styles.locatedBtn}>
+              <Button
+                style={[styles.btn, styles.logout]}
+                onPress={() => this.props.navigation.navigate('ManagerUser')}>
+                LogOut
+              </Button>
+            </View>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              Manager User
+            </Button>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              My WishList
+            </Button>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              DrugStore Mode
+            </Button>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              Change Password
+            </Button>
+          </View>
+        )}
       </View>
     );
   }
@@ -67,8 +86,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: hp('-10%'),
   },
-  login: {
+  logout: {
     fontSize: 20,
-    width: wp('25%'),
+    width: wp('27%'),
   },
 });

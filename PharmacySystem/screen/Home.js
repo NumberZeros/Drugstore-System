@@ -22,7 +22,6 @@ export default class Home extends Component {
     this.state = {
       isClick: false,
       value: '',
-      login: false,
     };
     this.callbackHandlerFunction = this.callbackHandlerFunction.bind(this);
   }
@@ -34,14 +33,8 @@ export default class Home extends Component {
     });
   };
 
-  login = text => {
-    this.setState({
-      login: text,
-    });
-  };
-
   render() {
-    const {isClick, value, login} = this.state;
+    const {isClick, value} = this.state;
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View>
@@ -50,7 +43,6 @@ export default class Home extends Component {
             LoginParent={this.login}
             data={isClick}
           />
-          {login === true && this.props.navigation.navigate('Login')}
           {isClick === true &&
             value !== '' &&
             this.props.navigation.navigate('Details', {value: value})}

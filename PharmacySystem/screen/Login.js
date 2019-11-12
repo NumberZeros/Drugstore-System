@@ -32,25 +32,28 @@ export default class Login extends Component {
       creactaccount: false,
     };
   }
-  login = ()=>{
-    const {email,passWord}=this.state.value;
-    firebasesApp.auth().signInWithEmailAndPassword(email, passWord)
-    .then(()=>(
-      Alert.alert(
-        'Đăng nhập thành công ' + `${email}`,
-        'Cám ơn quí kháckh',
-        [
-          {
-            text: 'OK',
-            onPress: () => this.props.navigation.navigate('Home'),
-          },
-        ],
-        {cancelable: false},
-    )))
-    .catch(function(error) {
-      Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng nhập')
-    });
-  }
+  login = () => {
+    const {email, passWord} = this.state.value;
+    firebasesApp
+      .auth()
+      .signInWithEmailAndPassword(email, passWord)
+      .then(() =>
+        Alert.alert(
+          'Đăng nhập thành công ' + `${email}`,
+          'Cám ơn quí kháckh',
+          [
+            {
+              text: 'OK',
+              onPress: () => this.props.navigation.navigate('Home'),
+            },
+          ],
+          {cancelable: false},
+        ),
+      )
+      .catch(function(error) {
+        Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng nhập');
+      });
+  };
 
   render() {
     const {value, creactaccount} = this.state;
@@ -86,7 +89,10 @@ export default class Login extends Component {
           }
         />
         <View style={styles.formatBtn}>
-          <Button style={styles.btn} onPress={this.login}> Login </Button>
+          <Button style={styles.btn} onPress={this.login}>
+            {' '}
+            Login{' '}
+          </Button>
           <Button
             style={styles.btn}
             onPress={() => this.setState({creactaccount: true})}>
