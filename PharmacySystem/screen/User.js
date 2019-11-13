@@ -7,6 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import Login from '../component/Login.user';
 export default class User extends React.Component {
   constructor(props) {
     super(props);
@@ -14,18 +15,36 @@ export default class User extends React.Component {
       login: false,
       idAcount: '',
       gmail: '',
+      status: false,
     };
   }
+
+  handlelogin = user => {
+    const {...account} = user;
+    console.log(user);
+    const idAcount = account.uid;
+    const gmail = account.email;
+    this.setState({
+      login: true,
+      idAcount,
+      gmail,
+    });
+  };
+
+  create = status => {
+    console.log(status);
+    this.setState({
+      status,
+    });
+  };
+
   render() {
-    const {login, idAcount, gmail} = this.state;
+    const {login, idAcount, gmail, status} = this.state;
     return (
       <View style={styles.user}>
+        {status === true && this.props.navigation.navigate('Register')}
         {login === false ? (
-          <Button
-            style={styles.btn}
-            onPress={() => this.props.navigation.navigate('Login')}>
-            Login
-          </Button>
+          <Login parentLogin={this.handlelogin} createAccount={this.create} />
         ) : (
           <View>
             <View style={styles.locatedBtn}>

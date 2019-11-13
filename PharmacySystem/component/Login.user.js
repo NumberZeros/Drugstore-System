@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TextInput, Text, StyleSheet, Alert} from 'react-native';
+import {View, TextInput, StyleSheet, Alert} from 'react-native';
 
 import Button from 'react-native-button';
 import {
@@ -29,7 +29,6 @@ export default class Login extends Component {
         email: '',
         passWord: '',
       },
-      creactaccount: false,
     };
   }
   login = () => {
@@ -37,26 +36,33 @@ export default class Login extends Component {
     firebasesApp
       .auth()
       .signInWithEmailAndPassword(email, passWord)
-      .then(() =>
+      .then(() => {
+        const user = firebasesApp.auth().currentUser;
         Alert.alert(
           'Đăng nhập thành công ' + `${email}`,
           'Cám ơn quí kháckh',
           [
             {
               text: 'OK',
-              onPress: () => this.props.navigation.navigate('Home'),
+              onPress: () => {
+                this.props.parentLogin(user);
+              },
             },
           ],
           {cancelable: false},
-        ),
-      )
+        );
+      })
       .catch(function(error) {
-        Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng nhập');
+        Alert.alert('Vui lòng kiểm tra lại email hoặc password');
       });
   };
 
+  create = () => {
+    const status = true;
+    this.props.createAccount(status);
+  };
   render() {
-    const {value, creactaccount} = this.state;
+    const {value} = this.state;
     return (
       <View style={styles.login}>
         <TextInput
@@ -93,12 +99,9 @@ export default class Login extends Component {
             {' '}
             Login{' '}
           </Button>
-          <Button
-            style={styles.btn}
-            onPress={() => this.setState({creactaccount: true})}>
+          <Button style={styles.btn} onPress={this.create}>
             Register
           </Button>
-          {creactaccount === true && this.props.navigation.navigate('Register')}
         </View>
       </View>
     );
