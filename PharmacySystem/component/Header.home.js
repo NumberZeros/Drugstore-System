@@ -21,36 +21,11 @@ export default class Header extends Component {
   Change = text => {
     this.setState({text});
   };
-  login = () => {
-    const {...state} = this.state;
-    const login = true;
-    this.setState({
-      status: !state.status,
-    });
-    this.props.LoginParent(login);
-  };
   render() {
     return (
       <View style={styles.header}>
         <View style={styles.accout}>
           <Text style={[styles.text, styles.hello]}>Hello, </Text>
-          {this.state.status === true ? (
-            <Button
-              style={[styles.btn, styles.login]}
-              color="#86C232"
-              width={10}
-              onPress={this.login}>
-              Login
-            </Button>
-          ) : (
-            <Button
-              style={[styles.btn, styles.login]}
-              color="#86C232"
-              width={10}
-              onPress={this.login}>
-              LogOut
-            </Button>
-          )}
         </View>
 
         <Text style={styles.text}>What can I do for you ?</Text>

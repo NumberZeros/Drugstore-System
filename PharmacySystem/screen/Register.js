@@ -83,7 +83,7 @@ export default class Register extends Component {
             },
             {
               text: 'OK',
-              onPress: () => this.props.navigation.navigate('Login'),
+              onPress: () => this.props.navigation.goBack(),
             },
           ],
           {cancelable: false},
@@ -92,9 +92,6 @@ export default class Register extends Component {
       .catch(function(error) {
         Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng kí');
       });
-  };
-  test = () => {
-    console.log(this.state.value.email, this.state.value.passWord);
   };
   render() {
     const {value} = this.state;
@@ -121,9 +118,6 @@ export default class Register extends Component {
         <View style={styles.formatBtn}>
           <Button style={styles.btn} onPress={this.RegisterAccount}>
             Register
-          </Button>
-          <Button style={styles.btn} onPress={this.test}>
-            test
           </Button>
         </View>
       </View>

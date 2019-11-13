@@ -6,12 +6,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Home from './screen/Home';
 import Caterogies from './screen/catergories';
-import Login from './screen/Login';
 import Register from './screen/Register';
 import Manager from './screen/Manager';
 import Messeger from './screen/Messeger';
 import User from './screen/User';
 import ManagerUser from './screen/Manager.user';
+import Login from './component/Login.user';
 
 const RootStack = createStackNavigator(
   {

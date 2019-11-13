@@ -7,37 +7,75 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import Login from '../component/Login.user';
 export default class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: false,
+      idAcount: '',
+      gmail: '',
+      status: false,
+    };
+  }
+
+  handlelogin = user => {
+    const {...account} = user;
+    console.log(user);
+    const idAcount = account.uid;
+    const gmail = account.email;
+    this.setState({
+      login: true,
+      idAcount,
+      gmail,
+    });
+  };
+
+  create = status => {
+    console.log(status);
+    this.setState({
+      status,
+    });
+  };
+
   render() {
+    const {login, idAcount, gmail, status} = this.state;
     return (
       <View style={styles.user}>
-        <View style={styles.locatedBtn}>
-          <Button
-            style={[styles.btn, styles.login]}
-            onPress={() => this.props.navigation.navigate('ManagerUser')}>
-            Login
-          </Button>
-        </View>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          Manager User
-        </Button>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          My WishList
-        </Button>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          DrugStore Mode
-        </Button>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          Change Password
-        </Button>
+        {status === true && this.props.navigation.navigate('Register')}
+        {login === false ? (
+          <Login parentLogin={this.handlelogin} createAccount={this.create} />
+        ) : (
+          <View>
+            <View style={styles.locatedBtn}>
+              <Button
+                style={[styles.btn, styles.logout]}
+                onPress={() => this.props.navigation.navigate('ManagerUser')}>
+                LogOut
+              </Button>
+            </View>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              Manager User
+            </Button>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              My WishList
+            </Button>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              DrugStore Mode
+            </Button>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              Change Password
+            </Button>
+          </View>
+        )}
       </View>
     );
   }
@@ -67,8 +105,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: hp('-10%'),
   },
-  login: {
+  logout: {
     fontSize: 20,
-    width: wp('25%'),
+    width: wp('27%'),
   },
 });

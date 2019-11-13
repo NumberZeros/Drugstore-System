@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TextInput, Text, StyleSheet, Alert} from 'react-native';
+import {View, TextInput, StyleSheet, Alert} from 'react-native';
 
 import Button from 'react-native-button';
 import {
@@ -29,31 +29,40 @@ export default class Login extends Component {
         email: '',
         passWord: '',
       },
-      creactaccount: false,
     };
   }
-  login = ()=>{
-    const {email,passWord}=this.state.value;
-    firebasesApp.auth().signInWithEmailAndPassword(email, passWord)
-    .then(()=>(
-      Alert.alert(
-        'Đăng nhập thành công ' + `${email}`,
-        'Cám ơn quí kháckh',
-        [
-          {
-            text: 'OK',
-            onPress: () => this.props.navigation.navigate('Home'),
-          },
-        ],
-        {cancelable: false},
-    )))
-    .catch(function(error) {
-      Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng nhập')
-    });
-  }
+  login = () => {
+    const {email, passWord} = this.state.value;
+    firebasesApp
+      .auth()
+      .signInWithEmailAndPassword(email, passWord)
+      .then(() => {
+        const user = firebasesApp.auth().currentUser;
+        Alert.alert(
+          'Đăng nhập thành công ' + `${email}`,
+          'Cám ơn quí kháckh',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                this.props.parentLogin(user);
+              },
+            },
+          ],
+          {cancelable: false},
+        );
+      })
+      .catch(function(error) {
+        Alert.alert('Vui lòng kiểm tra lại email hoặc password');
+      });
+  };
 
+  create = () => {
+    const status = true;
+    this.props.createAccount(status);
+  };
   render() {
-    const {value, creactaccount} = this.state;
+    const {value} = this.state;
     return (
       <View style={styles.login}>
         <TextInput
@@ -86,13 +95,13 @@ export default class Login extends Component {
           }
         />
         <View style={styles.formatBtn}>
-          <Button style={styles.btn} onPress={this.login}> Login </Button>
-          <Button
-            style={styles.btn}
-            onPress={() => this.setState({creactaccount: true})}>
+          <Button style={styles.btn} onPress={this.login}>
+            {' '}
+            Login{' '}
+          </Button>
+          <Button style={styles.btn} onPress={this.create}>
             Register
           </Button>
-          {creactaccount === true && this.props.navigation.navigate('Register')}
         </View>
       </View>
     );
