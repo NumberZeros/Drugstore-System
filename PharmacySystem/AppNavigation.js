@@ -8,16 +8,14 @@ import Home from './screen/Home';
 import Caterogies from './screen/catergories';
 import Register from './screen/Register';
 import Manager from './screen/Manager';
-import Messeger from './screen/Messeger';
 import User from './screen/User';
 import ManagerUser from './screen/Manager.user';
 import Login from './component/Login.user';
 
 const RootStack = createBottomTabNavigator(
   {
-    Home: {screen: Home},
     Manager: {screen: Manager},
-    Messeger: {screen: Messeger},
+    Home: {screen: Home},
     User: {screen: User},
   },
   {
@@ -25,18 +23,15 @@ const RootStack = createBottomTabNavigator(
       tabBarIcon: ({focused, tintColor}) => {
         const {routeName} = navigation.state;
         let iconName;
-        if (routeName === 'Home') {
-          iconName = 'md-home';
-        } else if (routeName === 'Manager') {
+        if (routeName === 'Manager') {
           iconName = 'md-apps';
-        } else if (routeName === 'Messeger') {
-          iconName = 'md-chatboxes';
+        } else if (routeName === 'Home') {
+          iconName = 'md-home';
         } else if (routeName === 'User') {
           iconName = 'md-contact';
         }
         return <Ionicons name={iconName} size={40} color={tintColor} />;
       },
-      // tabBarVisible: false,
     }),
     tabBarOptions: {
       activeTintColor: 'light',
@@ -54,6 +49,9 @@ export default createStackNavigator(
     Details: {screen: Caterogies},
     Login: {screen: Login},
     Register: {screen: Register},
+  },
+  {
+    headerMode: 'none',
   },
   {
     initialRouteName: 'Home',
