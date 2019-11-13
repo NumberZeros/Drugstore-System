@@ -13,21 +13,9 @@ import User from './screen/User';
 import ManagerUser from './screen/Manager.user';
 import Login from './component/Login.user';
 
-const RootStack = createStackNavigator(
+const RootStack = createBottomTabNavigator(
   {
     Home: {screen: Home},
-    Details: {screen: Caterogies},
-    Login: {screen: Login},
-    Register: {screen: Register},
-    ManagerUser: {screen: ManagerUser},
-  },
-  {
-    initialRouteName: 'Home',
-  },
-);
-export default createBottomTabNavigator(
-  {
-    Home: {screen: RootStack},
     Manager: {screen: Manager},
     Messeger: {screen: Messeger},
     User: {screen: User},
@@ -46,16 +34,28 @@ export default createBottomTabNavigator(
         } else if (routeName === 'User') {
           iconName = 'md-contact';
         }
-        return <Ionicons name={iconName} size={25} color={tintColor} />;
+        return <Ionicons name={iconName} size={40} color={tintColor} />;
       },
+      // tabBarVisible: false,
     }),
     tabBarOptions: {
+      activeTintColor: 'light',
+      activeBackgroundColor: '#61892F',
+      inactiveBackgroundColor: '#474B4F',
       labelStyle: {
-        fontSize: 15,
-      },
-      style: {
-        backgroundColor: '#474B4F',
+        fontSize: 0,
       },
     },
+  },
+);
+export default createStackNavigator(
+  {
+    Home: {screen: RootStack},
+    Details: {screen: Caterogies},
+    Login: {screen: Login},
+    Register: {screen: Register},
+  },
+  {
+    initialRouteName: 'Home',
   },
 );
