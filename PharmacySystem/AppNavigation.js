@@ -10,7 +10,7 @@ import Register from './screen/Register';
 import Manager from './screen/Manager';
 import User from './screen/User';
 import ManagerUser from './screen/Manager.user';
-import Login from './component/Login.user';
+import Login from './component/login/Login.user';
 
 const RootStack = createBottomTabNavigator(
   {

@@ -6,9 +6,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'react-redux';
 
-import Login from '../component/Login.user';
-export default class User extends React.Component {
+import Login from '../component/login/Login.user';
+import * as actions from '../component/login/actions';
+
+class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,10 +44,12 @@ export default class User extends React.Component {
 
   render() {
     const {login, idAcount, gmail, status} = this.state;
+    const {data, isCheck} = this.props.Login;
+    console.log(this.props);
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
-        {login === false ? (
+        {isCheck === false ? (
           <Login parentLogin={this.handlelogin} createAccount={this.create} />
         ) : (
           <View>
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#222629',
+    // backgroundColor: '#222629',
   },
   btn: {
     fontSize: 30,
@@ -110,3 +116,20 @@ const styles = StyleSheet.create({
     width: wp('27%'),
   },
 });
+
+const mapStateToProps = actions => {
+  return {
+    ...actions,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(actions, dispatch),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps,
+)(User);

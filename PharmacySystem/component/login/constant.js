@@ -1,0 +1,10 @@
+export const CHECKLOGIN = 'CHECKLOGIN';
+export const CHECKLOGINSUCCESS = 'CHECKLOGINSUCCESS';
+
+export const LOGIN = 'LOGIN';
+export const LOGINSUCCESS = 'LOGINSUCCESS';
+export const LOGINFAIL = 'LOGINFAIL';
+
+export const LOGOUT = 'LOGOUT';
+export const LOGOUTSUCCESS = 'LOGOUTSUCCESS';
+export const LOGOUTFAIL = 'LOGOUTFAIL';

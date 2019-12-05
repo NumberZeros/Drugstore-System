@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
 import {View, TextInput, StyleSheet, Alert} from 'react-native';
+import {connect} from 'react-redux';
 
 import Button from 'react-native-button';
 import {
@@ -8,21 +9,11 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-import firebasesApp from '../component/firebaseConfig';
+import {name} from './reducer';
+import * as actions from './actions';
+// import firebasesApp from '../firebaseConfig';
 
 export default class Login extends Component {
-  static navigationOptions = {
-    title: 'Login',
-    alignItems: 'center',
-    headerStyle: {
-      backgroundColor: '#474B4F',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      marginLeft: wp('30%'),
-    },
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -32,31 +23,35 @@ export default class Login extends Component {
       },
     };
   }
-  login = () => {
-    const {email, passWord} = this.state.value;
-    firebasesApp
-      .auth()
-      .signInWithEmailAndPassword(email, passWord)
-      .then(() => {
-        const user = firebasesApp.auth().currentUser;
-        Alert.alert(
-          'Đăng nhập thành công ' + `${email}`,
-          'Cám ơn quí kháckh',
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                this.props.parentLogin(user);
-              },
-            },
-          ],
-          {cancelable: false},
-        );
-      })
-      .catch(function(error) {
-        Alert.alert('Vui lòng kiểm tra lại email hoặc password');
-      });
-  };
+  // login = () => {
+  //   const {email, passWord} = this.state.value;
+  //   firebasesApp
+  //     .auth()
+  //     .signInWithEmailAndPassword(email, passWord)
+  //     .then(() => {
+  //       const user = firebasesApp.auth().currentUser;
+  //       Alert.alert(
+  //         'Đăng nhập thành công ' + `${email}`,
+  //         'Cám ơn quí kháckh',
+  //         [
+  //           {
+  //             text: 'OK',
+  //             onPress: () => {
+  //               this.props.parentLogin(user);
+  //             },
+  //           },
+  //         ],
+  //         {cancelable: false},
+  //       );
+  //     })
+  //     .catch(function(error) {
+  //       Alert.alert('Vui lòng kiểm tra lại email hoặc password');
+  //     });
+  // };
+
+  // componentDidMount(){
+  //   this.props.actions.checkLogin();
+  // }
 
   create = () => {
     const status = true;
