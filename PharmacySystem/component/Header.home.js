@@ -52,7 +52,7 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#222629',
+    // backgroundColor: '#222629',
     flex: 1,
   },
   input: {
