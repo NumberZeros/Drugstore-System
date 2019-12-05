@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
 import {View, TextInput, StyleSheet, Alert} from 'react-native';
+import {connect} from 'react-redux';
 
 import Button from 'react-native-button';
 import {
@@ -8,9 +8,9 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-import firebasesApp from '../component/firebaseConfig';
+import firebasesApp from '../firebaseConfig';
 
-export default class Login extends Component {
+class Login extends Component {
   static navigationOptions = {
     title: 'Login',
     alignItems: 'center',
@@ -64,6 +64,7 @@ export default class Login extends Component {
   };
   render() {
     const {value} = this.state;
+    console.log(this.props);
     return (
       <View style={styles.login}>
         <TextInput
@@ -142,3 +143,23 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
 });
+
+const mapStateToProps = state => {
+  // console.log(state);
+  return {
+    props: state,
+  };
+};
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     dispatch1: () => {
+//       dispatch(actionCreator)
+//     }
+//   }
+// }
+
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps,
+)(Login);

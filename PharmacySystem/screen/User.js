@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-import Login from '../component/Login.user';
+import Login from '../component/login/Login.user';
 export default class User extends React.Component {
   constructor(props) {
     super(props);
