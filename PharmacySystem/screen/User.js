@@ -7,10 +7,10 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import Login from '../component/login/Login.user';
-import * as actions from '../component/login/actions';
+import * as action from '../component/login/actions';
 
 class User extends React.Component {
   constructor(props) {
@@ -23,34 +23,35 @@ class User extends React.Component {
     };
   }
 
-  handlelogin = user => {
-    const {...account} = user;
-    console.log(user);
-    const idAcount = account.uid;
-    const gmail = account.email;
-    this.setState({
-      login: true,
-      idAcount,
-      gmail,
-    });
-  };
+  // handlelogin = user => {
+  //   const {...account} = user;
+  //   console.log(user);
+  //   const idAcount = account.uid;
+  //   const gmail = account.email;
+  //   this.setState({
+  //     login: true,
+  //     idAcount,
+  //     gmail,
+  //   });
+  // };
 
-  create = status => {
-    console.log(status);
-    this.setState({
-      status,
-    });
-  };
+  // create = status => {
+  //   console.log(status);
+  //   this.setState({
+  //     status,
+  //   });
+  // };
 
   render() {
     const {login, idAcount, gmail, status} = this.state;
     const {data, isCheck} = this.props.Login;
-    console.log(this.props);
+    // console.log(this.props.actions);
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
         {isCheck === false ? (
-          <Login parentLogin={this.handlelogin} createAccount={this.create} />
+          // <Login parentLogin={this.handlelogin} createAccount={this.create} />
+          <Login {...this.props} />
         ) : (
           <View>
             <View style={styles.locatedBtn}>
@@ -117,19 +118,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = actions => {
+const mapStateToProps = state => {
   return {
-    ...actions,
+    ...state,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(actions, dispatch),
+function mapDispatchToProps(dispatch) {
+  const actions = {
+    ...action,
   };
-};
+  return {actions: bindActionCreators(actions, dispatch)};
+}
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps,
+  mapDispatchToProps,
 )(User);

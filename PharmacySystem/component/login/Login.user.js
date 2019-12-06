@@ -10,21 +10,21 @@ import {
 } from 'react-native-responsive-screen';
 
 import {name} from './reducer';
-import * as actions from './actions';
+// import * as actions from './actions';
 // import firebasesApp from '../firebaseConfig';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: {
+      data: {
         email: '',
         passWord: '',
       },
     };
   }
   // login = () => {
-  //   const {email, passWord} = this.state.value;
+  //   const {email, passWord} = this.state.data;
   //   firebasesApp
   //     .auth()
   //     .signInWithEmailAndPassword(email, passWord)
@@ -58,20 +58,23 @@ export default class Login extends Component {
     this.props.createAccount(status);
   };
   render() {
-    const {value} = this.state;
+    const {data} = this.state;
+    console.log(`data: ${data.email}`);
+    // console.log(`login ${this.props.actions.login}`);
+    const {...actions} = this.props;
     return (
       <View style={styles.login}>
         <TextInput
           style={styles.input}
           keyboardType="email-address"
           placeholder="Email"
-          value={value.email}
+          data={data.email}
           //   autoFocus={true}
           onChangeText={text =>
             this.setState({
-              value: {
+              data: {
                 email: text,
-                password: value.passWord,
+                password: data.passWord,
               },
             })
           }
@@ -80,18 +83,21 @@ export default class Login extends Component {
           style={styles.input}
           secureTextEntry={true}
           placeholder="PassWord"
-          value={value.passWord}
+          data={data.passWord}
           onChangeText={text =>
             this.setState({
-              value: {
-                email: value.email,
+              data: {
+                email: data.email,
                 passWord: text,
               },
             })
           }
         />
         <View style={styles.formatBtn}>
-          <Button style={styles.btn} onPress={this.login}>
+          {/* <Button style={styles.btn} onPress={this.login}> */}
+          <Button
+            style={styles.btn}
+            onPress={data => this.props.actions.login(data)}>
             {' '}
             Login{' '}
           </Button>

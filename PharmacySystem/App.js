@@ -6,7 +6,9 @@ import {createStore} from 'redux';
 import MyReducer from './redux/MyReducer';
 
 const AppContainer = createAppContainer(AppNavigation);
-const store = createStore(MyReducer);
+
+const initialState = {};
+const store = createStore(MyReducer, initialState);
 
 export default class App extends Component {
   render() {

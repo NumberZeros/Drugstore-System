@@ -9,8 +9,10 @@ let initialState = {
 export const name = 'login';
 
 const handleAction = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case actionType.login: {
+      console.log(`reducer: ${action}`);
       const {...datas} = action.payload;
       const res = APIS.login(datas);
       return {

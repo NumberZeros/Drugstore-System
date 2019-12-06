@@ -8,6 +8,8 @@ export const checkLogin = isCheck => {
 };
 
 export const login = data => {
+  const [datas] = data;
+  console.log(`action ${datas.email}`);
   return {
     type: CONST.LOGIN,
     data: data,
