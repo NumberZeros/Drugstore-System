@@ -93,6 +93,7 @@ export default class Register extends Component {
         Alert.alert('Vui lòng kiểm tra lại kết nối trước khi đăng kí');
       });
   };
+
   render() {
     const {value} = this.state;
     return (

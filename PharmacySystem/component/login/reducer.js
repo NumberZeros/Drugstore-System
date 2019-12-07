@@ -1,22 +1,56 @@
-import * as actions from './actions';
-import freeze from 'deep-freeze';
-import {handleActions} from 'redux-actions';
+import {Alert} from 'react-native';
+import * as actionType from './constant';
+import * as APIS from '../../api/login';
 
-const name = 'LoginUser';
+import firebasesApp from '../firebaseConfig';
 
-const initialState = freeze({
-  id: false,
-  email: '',
-  password: '',
-});
+let initialState = {
+  isCheck: false,
+  data: {},
+};
 
-export default handleActions(
-  {
-    [actions.checkLogin]: (state, action) => {
-      return freeze({
+export const name = 'login';
+
+const handleAction = (state = initialState, action) => {
+  console.log(JSON.stringify(action));
+  switch (action.type) {
+    case actionType.LOGIN: {
+      const {email, passWord} = action.data;
+      firebasesApp
+        .auth()
+        .signInWithEmailAndPassword(email, passWord)
+        .then(() => {
+          Alert.alert(
+            'Đăng nhập thành công ' + `${email}`,
+            'Cám ơn quí kháckh',
+            [
+              {
+                text: 'OK',
+              },
+            ],
+            {cancelable: false},
+          );
+        })
+        .catch(function(error) {
+          Alert.alert('Vui lòng kiểm tra lại email hoặc password');
+          return error;
+        });
+      const user = firebasesApp.auth().currentUser;
+      return {
         ...state,
-      });
-    },
-  },
-  initialState,
-);
+        data: {
+          id: user.uid,
+          email: user.uid,
+        },
+        isCheck: !state.isCheck,
+      };
+    }
+    case actionType.checkLogin: {
+      return state;
+    }
+    default:
+      return state;
+  }
+};
+
+export default handleAction;

@@ -8,76 +8,45 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-import firebasesApp from '../firebaseConfig';
+import {name} from './reducer';
+// import * as actions from './actions';
+// import firebasesApp from '../firebaseConfig';
 
-class Login extends Component {
-  static navigationOptions = {
-    title: 'Login',
-    alignItems: 'center',
-    headerStyle: {
-      backgroundColor: '#474B4F',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      marginLeft: wp('30%'),
-    },
-  };
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: {
+      data: {
         email: '',
         passWord: '',
       },
     };
   }
-  login = () => {
-    const {email, passWord} = this.state.value;
-    firebasesApp
-      .auth()
-      .signInWithEmailAndPassword(email, passWord)
-      .then(() => {
-        const user = firebasesApp.auth().currentUser;
-        Alert.alert(
-          'Đăng nhập thành công ' + `${email}`,
-          'Cám ơn quí kháckh',
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                this.props.parentLogin(user);
-              },
-            },
-          ],
-          {cancelable: false},
-        );
-      })
-      .catch(function(error) {
-        Alert.alert('Vui lòng kiểm tra lại email hoặc password');
-      });
-  };
+
+  // componentDidMount(){
+  //   this.props.actions.checkLogin();
+  // }
 
   create = () => {
     const status = true;
     this.props.createAccount(status);
   };
   render() {
-    const {value} = this.state;
-    console.log(this.props);
+    const {data} = this.state;
+    const {...actions} = this.props;
     return (
       <View style={styles.login}>
         <TextInput
           style={styles.input}
           keyboardType="email-address"
           placeholder="Email"
-          value={value.email}
-          //   autoFocus={true}
+          data={data.email}
+          // autoFocus={true}
           onChangeText={text =>
             this.setState({
-              value: {
+              data: {
                 email: text,
-                password: value.passWord,
+                password: data.passWord,
               },
             })
           }
@@ -86,18 +55,20 @@ class Login extends Component {
           style={styles.input}
           secureTextEntry={true}
           placeholder="PassWord"
-          value={value.passWord}
+          data={data.passWord}
           onChangeText={text =>
             this.setState({
-              value: {
-                email: value.email,
+              data: {
+                email: data.email,
                 passWord: text,
               },
             })
           }
         />
         <View style={styles.formatBtn}>
-          <Button style={styles.btn} onPress={this.login}>
+          <Button
+            style={styles.btn}
+            onPress={() => this.props.actions.login(data)}>
             {' '}
             Login{' '}
           </Button>

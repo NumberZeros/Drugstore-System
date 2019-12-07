@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {createAppContainer} from 'react-navigation';
 import AppNavigation from './AppNavigation';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import MyReducer from './redux/myReducer';
+import {createStore} from 'redux';
+import MyReducer from './redux/MyReducer';
 
 const AppContainer = createAppContainer(AppNavigation);
 
-let store = createStore(MyReducer);
+const initialState = {};
+const store = createStore(MyReducer, initialState);
+
 export default class App extends Component {
   render() {
     return (

@@ -1,7 +1,15 @@
 import * as CONST from './constant';
 
-import {createAction} from 'redux-actions';
+export const checkLogin = isCheck => {
+  return {
+    type: CONST.CHECKLOGIN,
+    isLogin: isCheck,
+  };
+};
 
-export const checkLogin = createAction(CONST.CHECKLOGIN);
-export const checkLoginSuccess = createAction(CONST.CHECKLOGINSUCCESS);
-export const checkLoginFail = createAction(CONST.CHECKLOGINFAIL);
+export function login(data) {
+  return {
+    type: CONST.LOGIN,
+    data: data,
+  };
+};

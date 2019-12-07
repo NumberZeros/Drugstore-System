@@ -6,9 +6,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import Login from '../component/login/Login.user';
-export default class User extends React.Component {
+import * as action from '../component/login/actions';
+
+class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,17 +23,17 @@ export default class User extends React.Component {
     };
   }
 
-  handlelogin = user => {
-    const {...account} = user;
-    console.log(user);
-    const idAcount = account.uid;
-    const gmail = account.email;
-    this.setState({
-      login: true,
-      idAcount,
-      gmail,
-    });
-  };
+  // handlelogin = user => {
+  //   const {...account} = user;
+  //   console.log(user);
+  //   const idAcount = account.uid;
+  //   const gmail = account.email;
+  //   this.setState({
+  //     login: true,
+  //     idAcount,
+  //     gmail,
+  //   });
+  // };
 
   create = status => {
     console.log(status);
@@ -40,11 +44,14 @@ export default class User extends React.Component {
 
   render() {
     const {login, idAcount, gmail, status} = this.state;
+    const {data, isCheck} = this.props.Login;
+    console.log(JSON.stringify(data));
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
-        {login === false ? (
-          <Login parentLogin={this.handlelogin} createAccount={this.create} />
+        {isCheck === false ? (
+          // <Login parentLogin={this.handlelogin} createAccount={this.create} />
+          <Login {...this.props} createAccount={this.create} />
         ) : (
           <View>
             <View style={styles.locatedBtn}>
@@ -86,7 +93,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#222629',
+    // backgroundColor: '#222629',
   },
   btn: {
     fontSize: 30,
@@ -110,3 +117,21 @@ const styles = StyleSheet.create({
     width: wp('27%'),
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    ...state,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  const actions = {
+    ...action,
+  };
+  return {actions: bindActionCreators(actions, dispatch)};
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(User);
