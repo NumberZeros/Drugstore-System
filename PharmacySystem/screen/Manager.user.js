@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
-import {View, TextInput, StyleSheet, Keyboard} from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Keyboard,
+  TouchableOpacity,
+} from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 export default class ManagerUser extends Component {
@@ -12,13 +19,18 @@ export default class ManagerUser extends Component {
       BirthDay: '19/05/1999',
     };
   }
+  componentDidMount(){
+    
+  }
   render() {
     return (
       <View style={styles.content}>
         <View>
+          <TouchableOpacity style={styles.headIcon}>
+            <Icon name="user" color="#86C232" size={wp('30%')} />
+          </TouchableOpacity>
           <TextInput
             style={styles.input}
-            placeholder="Searching..."
             onChangeText={this.Change}
             // onKeyPress={this.enter}
             returnKeyType="search"

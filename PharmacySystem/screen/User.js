@@ -16,7 +16,6 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: false,
       idAcount: '',
       gmail: '',
       status: false,
@@ -43,9 +42,9 @@ class User extends React.Component {
   };
 
   render() {
-    const {login, idAcount, gmail, status} = this.state;
+    const { idAcount, gmail, status} = this.state;
     const {data, isCheck} = this.props.Login;
-    console.log(JSON.stringify(data));
+    console.log('data', JSON.stringify(data));
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
@@ -57,7 +56,9 @@ class User extends React.Component {
             <View style={styles.locatedBtn}>
               <Button
                 style={[styles.btn, styles.logout]}
-                onPress={() => this.props.navigation.navigate('ManagerUser')}>
+                onPress={() =>
+                  this.props.navigation.navigate('ManagerUser', {data})
+                }>
                 LogOut
               </Button>
             </View>

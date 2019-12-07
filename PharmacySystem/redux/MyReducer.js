@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
-import Login, {name as nameOfLogin} from '../component/login/reducer';
+
+import Login from '../component/login/reducer';
 
 const MyReducer = combineReducers({
   Login,

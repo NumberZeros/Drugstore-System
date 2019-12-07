@@ -1,8 +1,9 @@
 import {Alert} from 'react-native';
 import * as actionType from './constant';
-import * as APIS from '../../api/login';
 
 import firebasesApp from '../firebaseConfig';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 let initialState = {
   isCheck: false,
@@ -12,7 +13,7 @@ let initialState = {
 export const name = 'login';
 
 const handleAction = (state = initialState, action) => {
-  console.log(JSON.stringify(action));
+  console.log('action', JSON.stringify(action));
   switch (action.type) {
     case actionType.LOGIN: {
       const {email, passWord} = action.data;
@@ -45,7 +46,21 @@ const handleAction = (state = initialState, action) => {
         isCheck: !state.isCheck,
       };
     }
-    case actionType.checkLogin: {
+    case actionType.CHECKLOGIN: {
+      let db = firebase
+        .firestore()
+        .collection('User')
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(doc => {
+            //khi thực hiện thì nó sẽ trả về 2 thuộc tính id và data
+            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+          });
+        })
+        .catch(function(error) {
+          console.log('Error getting documents: ', error);
+        });
+
       return state;
     }
     default:

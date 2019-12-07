@@ -49,6 +49,7 @@ export default createStackNavigator(
     Details: {screen: Caterogies},
     Login: {screen: Login},
     Register: {screen: Register},
+    ManagerUser: {screen: ManagerUser},
   },
   {
     headerMode: 'none',
