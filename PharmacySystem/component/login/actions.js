@@ -7,9 +7,7 @@ export const checkLogin = isCheck => {
   };
 };
 
-export const login = data => {
-  const [datas] = data;
-  console.log(`action ${datas.email}`);
+export function login(data) {
   return {
     type: CONST.LOGIN,
     data: data,

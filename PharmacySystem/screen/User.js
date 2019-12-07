@@ -35,23 +35,23 @@ class User extends React.Component {
   //   });
   // };
 
-  // create = status => {
-  //   console.log(status);
-  //   this.setState({
-  //     status,
-  //   });
-  // };
+  create = status => {
+    console.log(status);
+    this.setState({
+      status,
+    });
+  };
 
   render() {
     const {login, idAcount, gmail, status} = this.state;
     const {data, isCheck} = this.props.Login;
-    // console.log(this.props.actions);
+    console.log(JSON.stringify(data));
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
         {isCheck === false ? (
           // <Login parentLogin={this.handlelogin} createAccount={this.create} />
-          <Login {...this.props} />
+          <Login {...this.props} createAccount={this.create} />
         ) : (
           <View>
             <View style={styles.locatedBtn}>

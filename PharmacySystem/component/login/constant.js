@@ -8,3 +8,5 @@ export const LOGINFAIL = 'LOGINFAIL';
 export const LOGOUT = 'LOGOUT';
 export const LOGOUTSUCCESS = 'LOGOUTSUCCESS';
 export const LOGOUTFAIL = 'LOGOUTFAIL';
+
+export const HANDLEINPUTCHANGE = 'HANDLEINPUTCHANGE';

@@ -23,31 +23,6 @@ export default class Login extends Component {
       },
     };
   }
-  // login = () => {
-  //   const {email, passWord} = this.state.data;
-  //   firebasesApp
-  //     .auth()
-  //     .signInWithEmailAndPassword(email, passWord)
-  //     .then(() => {
-  //       const user = firebasesApp.auth().currentUser;
-  //       Alert.alert(
-  //         'Đăng nhập thành công ' + `${email}`,
-  //         'Cám ơn quí kháckh',
-  //         [
-  //           {
-  //             text: 'OK',
-  //             onPress: () => {
-  //               this.props.parentLogin(user);
-  //             },
-  //           },
-  //         ],
-  //         {cancelable: false},
-  //       );
-  //     })
-  //     .catch(function(error) {
-  //       Alert.alert('Vui lòng kiểm tra lại email hoặc password');
-  //     });
-  // };
 
   // componentDidMount(){
   //   this.props.actions.checkLogin();
@@ -59,8 +34,6 @@ export default class Login extends Component {
   };
   render() {
     const {data} = this.state;
-    console.log(`data: ${data.email}`);
-    // console.log(`login ${this.props.actions.login}`);
     const {...actions} = this.props;
     return (
       <View style={styles.login}>
@@ -69,7 +42,7 @@ export default class Login extends Component {
           keyboardType="email-address"
           placeholder="Email"
           data={data.email}
-          //   autoFocus={true}
+          // autoFocus={true}
           onChangeText={text =>
             this.setState({
               data: {
@@ -94,10 +67,9 @@ export default class Login extends Component {
           }
         />
         <View style={styles.formatBtn}>
-          {/* <Button style={styles.btn} onPress={this.login}> */}
           <Button
             style={styles.btn}
-            onPress={data => this.props.actions.login(data)}>
+            onPress={() => this.props.actions.login(data)}>
             {' '}
             Login{' '}
           </Button>
