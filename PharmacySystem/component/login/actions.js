@@ -12,4 +12,11 @@ export function login(data) {
     type: CONST.LOGIN,
     data: data,
   };
-};
+}
+
+export function creacteAccount(data) {
+  return {
+    type: CONST.LOGIN,
+    data: data,
+  };
+}

@@ -15,6 +15,8 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import firebasesApp from '../component/firebaseConfig';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 export default class Register extends Component {
   static navigationOptions = {
@@ -62,6 +64,19 @@ export default class Register extends Component {
   RegisterAccount = () => {
     const {email, passWord} = this.state.value;
     console.log(email, passWord);
+    // Add a new document with a generated id.
+    let db = firebase.firestore();
+    db.collection('User')
+      .add({
+        gmail: {email},
+      })
+      .then(function(docRef) {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
+
     firebasesApp
       .auth()
       .createUserWithEmailAndPassword(email, passWord)

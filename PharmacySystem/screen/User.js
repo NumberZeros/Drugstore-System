@@ -35,16 +35,15 @@ class User extends React.Component {
   // };
 
   create = status => {
-    console.log(status);
     this.setState({
       status,
     });
   };
 
   render() {
-    const { idAcount, gmail, status} = this.state;
+    const {idAcount, gmail, status} = this.state;
     const {data, isCheck} = this.props.Login;
-    console.log('data', JSON.stringify(data));
+    console.log('status', this.props);
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
@@ -54,13 +53,7 @@ class User extends React.Component {
         ) : (
           <View>
             <View style={styles.locatedBtn}>
-              <Button
-                style={[styles.btn, styles.logout]}
-                onPress={() =>
-                  this.props.navigation.navigate('ManagerUser', {data})
-                }>
-                LogOut
-              </Button>
+              <Button style={[styles.btn, styles.logout]}>LogOut</Button>
             </View>
             <Button
               style={styles.btn}

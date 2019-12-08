@@ -8,12 +8,12 @@ import 'firebase/firestore';
 let initialState = {
   isCheck: false,
   data: {},
+  isAcount: false,
 };
 
 export const name = 'login';
 
 const handleAction = (state = initialState, action) => {
-  console.log('action', JSON.stringify(action));
   switch (action.type) {
     case actionType.LOGIN: {
       const {email, passWord} = action.data;
@@ -41,12 +41,13 @@ const handleAction = (state = initialState, action) => {
         ...state,
         data: {
           id: user.uid,
-          email: user.uid,
+          email: user.email,
         },
         isCheck: !state.isCheck,
       };
     }
     case actionType.CHECKLOGIN: {
+      console.log(JSON.stringify(action));
       let db = firebase
         .firestore()
         .collection('User')
@@ -54,14 +55,21 @@ const handleAction = (state = initialState, action) => {
         .then(function(querySnapshot) {
           querySnapshot.forEach(doc => {
             //khi thực hiện thì nó sẽ trả về 2 thuộc tính id và data
-            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+            // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+            if (doc.id === state.data.id) {
+              return {
+                ...state,
+                isAcount: true,
+              };
+            }
           });
         })
         .catch(function(error) {
           console.log('Error getting documents: ', error);
         });
-
-      return state;
+      return {
+        ...state,
+      };
     }
     default:
       return state;

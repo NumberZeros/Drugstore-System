@@ -71,7 +71,7 @@ export default class Login extends Component {
             style={styles.btn}
             onPress={() => [
               this.props.actions.login(data),
-              this.props.actions.checkLogin(data),
+              this.props.actions.checkLogin(),
             ]}>
             {' '}
             Login{' '}
