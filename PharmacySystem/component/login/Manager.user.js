@@ -23,14 +23,23 @@ export default class ManagerUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
+      email: '',
       username: '',
       birthday: '',
     };
   }
-  // componentDidMount(){
-  // }
+  componentDidMount(){
+    const that = this;
+    const {id, email} = this.props.Login.data;
+    console.log('props', id, email);
+
+    that.setState({
+      id,
+      email,
+    });
+  }
   render() {
-    console.log('props', JSON.stringify(this.props.Login.data));
     const {data} = this.props.Login.data;
     const {username, birthday} = this.state;
     return (
@@ -71,7 +80,11 @@ export default class ManagerUser extends Component {
           />
         </View>
         <View style={styles.locatedBtn}>
-          <Button style={[styles.btn, styles.logout]}>Change</Button>
+          <Button
+            style={[styles.btn, styles.logout]}
+            onPress={() => this.props.actions.updateInfo(this.state)}>
+            Change
+          </Button>
           <Button
             style={[styles.btn, styles.logout]}
             onPress={() => this.props.actions.logout()}>

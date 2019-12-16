@@ -86,8 +86,9 @@ const handleAction = (state = initialState, action) => {
                 .firestore()
                 .collection('User')
                 .doc(state.data.id)
-                .set({
-                  email: state.data.email,
+                .set(
+                  {
+                    email: state.data.email,
                   },
                   {merge: true},
                 )
@@ -106,6 +107,26 @@ const handleAction = (state = initialState, action) => {
       return {
         ...state,
       };
+    }
+    case actionType.UPDATEINFO: {
+      let db = firebase
+        .firestore()
+        .collection('User')
+        .doc(action.data.id)
+        .set(
+          {
+            username: action.data.username,
+            birthday: action.data.birthday,
+          },
+          {merge: true},
+        )
+        .then(function() {
+          console.log('UPdate success!');
+        })
+        .catch(function(error) {
+          console.error('Error writing document: ', error);
+        });
+      return state;
     }
     default:
       return state;
