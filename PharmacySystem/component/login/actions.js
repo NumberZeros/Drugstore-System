@@ -14,9 +14,15 @@ export function login(data) {
   };
 }
 
-export function creacteAccount(data) {
+export function logout() {
   return {
-    type: CONST.LOGIN,
+    type: CONST.LOGOUT,
+  };
+}
+
+export function updateInfo(data) {
+  return {
+    type: CONST.UPDATEINFO,
     data: data,
   };
 }

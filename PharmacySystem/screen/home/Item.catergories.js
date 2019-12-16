@@ -9,34 +9,34 @@ import {
 
 export default class Item extends Component {
   render() {
-    const {Id, ProductName, DrugStore, Price, image, Star} = this.props.data;
+    const {Id, nameproduct, namestore, price} = this.props.data;
     return (
       <View style={styles.item}>
         <View style={styles.image}>
           <TouchableOpacity>
-            <Image
+            {/* <Image
               style={{width: wp('30%'), height: hp('18%')}}
               source={{uri: `${image}`}}
-            />
+            /> */}
           </TouchableOpacity>
         </View>
         <View style={styles.content}>
           <View style={[styles.label, styles.name]}>
             <Text style={styles.text}>Product Name: </Text>
-            <Text style={styles.text}>{ProductName}</Text>
+            <Text style={styles.text}>{nameproduct}</Text>
           </View>
           <View style={styles.label}>
             <Text style={styles.text}>Drug Store: </Text>
-            <Text style={styles.text}>{DrugStore}</Text>
+            <Text style={styles.text}>{namestore}</Text>
           </View>
           <View style={styles.label}>
-            <Text style={styles.text}>Price: </Text>
-            <Text style={styles.text}>{Price}</Text>
+            <Text style={styles.text}>price: </Text>
+            <Text style={styles.text}>{price}</Text>
           </View>
-          <View style={styles.label}>
+          {/* <View style={styles.label}>
             <Text style={styles.text}>Star: </Text>
             <Text style={styles.text}>{Star}</Text>
-          </View>
+          </View> */}
         </View>
       </View>
     );
@@ -52,28 +52,20 @@ const styles = StyleSheet.create({
     marginHorizontal: hp('1%'),
     borderColor: '#6B6E70',
     borderBottomWidth: 1,
-    // backgroundColor: '#236518',
   },
   image: {
-    // flexGrow: 1,
     borderColor: '#AAAAAA',
     borderWidth: 1,
     width: wp('30%'),
-    // backgroundColor: '#BBB518',
   },
   content: {
-    justifyContent: 'space-evenly',
-    // backgroundColor: '#FFF518',
+    justifyContent: 'space-around',
   },
   label: {
     padding: hp('1%'),
     flexDirection: 'row',
-    // marginBottom: hp('0.5%'),
   },
   text: {
     fontSize: hp('2%'),
-  },
-  name: {
-    flexGrow: 1,
   },
 });

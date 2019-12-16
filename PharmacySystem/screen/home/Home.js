@@ -3,24 +3,17 @@ import {View} from 'react-native';
 
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import Header from '../component/Header.home';
-export default class Home extends Component {
-  static navigationOptions = {
-    title: 'Home',
-    alignItems: 'center',
-    headerStyle: {
-      backgroundColor: '#474B4F',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      marginLeft: wp('45%'),
-    },
-  };
+import Header from './Header.home';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as action from './action';
+
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isClick: false,
+      isLoaddata: false,
       value: '',
     };
     this.callbackHandlerFunction = this.callbackHandlerFunction.bind(this);
@@ -34,7 +27,7 @@ export default class Home extends Component {
   };
 
   render() {
-    const {isClick, value} = this.state;
+    const {isClick, value, data} = this.state;
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View>
@@ -42,6 +35,7 @@ export default class Home extends Component {
             handleClickParent={this.callbackHandlerFunction}
             LoginParent={this.login}
             data={isClick}
+            // {...this.props}
           />
           {isClick === true &&
             value !== '' &&
@@ -51,3 +45,21 @@ export default class Home extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    ...state.Home,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  const actions = {
+    loaddata: action.loaddata,
+  };
+  return {actions: bindActionCreators(actions, dispatch)};
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home);

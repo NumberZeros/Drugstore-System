@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     fontSize: wp('10%'),
     borderWidth: 3,
     opacity: 0.5,
-    color: '#FFFFFF',
     borderRadius: 10,
     paddingLeft: 10,
     borderColor: '#6B6E70',
@@ -68,7 +67,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: wp('10%'),
-    color: '#FFFFFF',
     marginHorizontal: wp('5%'),
     marginVertical: wp('3%'),
   },

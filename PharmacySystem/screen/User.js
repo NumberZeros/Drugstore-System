@@ -11,6 +11,7 @@ import {bindActionCreators} from 'redux';
 
 import Login from '../component/login/Login.user';
 import * as action from '../component/login/actions';
+import Manager from '../component/login/Manager.user';
 
 class User extends React.Component {
   constructor(props) {
@@ -22,18 +23,6 @@ class User extends React.Component {
     };
   }
 
-  // handlelogin = user => {
-  //   const {...account} = user;
-  //   console.log(user);
-  //   const idAcount = account.uid;
-  //   const gmail = account.email;
-  //   this.setState({
-  //     login: true,
-  //     idAcount,
-  //     gmail,
-  //   });
-  // };
-
   create = status => {
     this.setState({
       status,
@@ -43,39 +32,36 @@ class User extends React.Component {
   render() {
     const {idAcount, gmail, status} = this.state;
     const {data, isCheck} = this.props.Login;
-    console.log('status', this.props);
+    console.log("haha",JSON.stringify(this.props));
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
         {isCheck === false ? (
-          // <Login parentLogin={this.handlelogin} createAccount={this.create} />
           <Login {...this.props} createAccount={this.create} />
         ) : (
-          <View>
-            <View style={styles.locatedBtn}>
-              <Button style={[styles.btn, styles.logout]}>LogOut</Button>
-            </View>
-            <Button
-              style={styles.btn}
-              onPress={() => this.props.navigation.navigate('ManagerUser')}>
-              Manager User
-            </Button>
-            <Button
-              style={styles.btn}
-              onPress={() => this.props.navigation.navigate('ManagerUser')}>
-              My WishList
-            </Button>
-            <Button
-              style={styles.btn}
-              onPress={() => this.props.navigation.navigate('ManagerUser')}>
-              DrugStore Mode
-            </Button>
-            <Button
-              style={styles.btn}
-              onPress={() => this.props.navigation.navigate('ManagerUser')}>
-              Change Password
-            </Button>
-          </View>
+          <Manager {...this.props} />
+          // <View style={styles.container}>
+          //   <Button
+          //     style={styles.btn}
+          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
+          //     Manager User
+          //   </Button>
+          //   <Button
+          //     style={styles.btn}
+          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
+          //     My WishList
+          //   </Button>
+          //   <Button
+          //     style={styles.btn}
+          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
+          //     DrugStore Mode
+          //   </Button>
+          //   <Button
+          //     style={styles.btn}
+          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
+          //     Change Password
+          //   </Button>
+          // </View>
         )}
       </View>
     );
@@ -99,16 +85,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
     marginVertical: wp('3%'),
+    justifyContent: 'center',
   },
   locatedBtn: {
     width: wp('90%'),
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     flexDirection: 'row',
-    marginTop: hp('-10%'),
+    // marginTop: hp('-10%'),
   },
   logout: {
     fontSize: 20,
     width: wp('27%'),
+  },
+  container: {
+    // flex: 1,
+    marginLeft: wp('10%'),
   },
 });
 

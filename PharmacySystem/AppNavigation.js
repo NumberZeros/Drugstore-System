@@ -4,8 +4,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Home from './screen/Home';
-import Caterogies from './screen/catergories';
+import Home from './screen/home/Home';
+import Caterogies from './screen/home/catergories';
 import Register from './screen/Register';
 import Manager from './screen/Manager';
 import User from './screen/User';

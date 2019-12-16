@@ -19,19 +19,20 @@ import {
 } from 'react-native-responsive-screen';
 import Button from 'react-native-button';
 
-class ManagerUser extends Component {
+export default class ManagerUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      UserName: 'Thọ',
-      PhoneNUmber: 25552222,
-      BirthDay: '19/05/1999',
+      username: '',
+      birthday: '',
     };
   }
   // componentDidMount(){
   // }
   render() {
-    console.log("props",JSON.stringify(this.props));
+    console.log('props', JSON.stringify(this.props.Login.data));
+    const {data} = this.props.Login.data;
+    const {username, birthday} = this.state;
     return (
       <View style={styles.content}>
         <TouchableOpacity style={styles.headIcon}>
@@ -41,11 +42,9 @@ class ManagerUser extends Component {
           <Text style={styles.text}>User Name</Text>
           <TextInput
             style={styles.input}
-            onChangeText={this.Change}
-            // onKeyPress={this.enter}
+            onChangeText={e => this.setState({username: e, birthday: birthday})}
             returnKeyType="User Name"
-            value={this.state.text}
-            // autoFocus={true}                    //tự động điều hướng vào khung
+            value={username}
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
           />
         </View>
@@ -53,11 +52,9 @@ class ManagerUser extends Component {
           <Text style={styles.text}>BrithDay</Text>
           <TextInput
             style={styles.input}
-            onChangeText={this.Change}
-            // onKeyPress={this.enter}
+            onChangeText={e => this.setState({username: username, birthday: e})}
             returnKeyType="BrithDay"
             value={this.state.text}
-            // autoFocus={true}                    //tự động điều hướng vào khung
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
           />
         </View>
@@ -68,12 +65,19 @@ class ManagerUser extends Component {
             onChangeText={this.Change}
             // onKeyPress={this.enter}
             returnKeyType="Email"
-            value={this.state.text}
+            value={this.props.Login.data.email}
             // autoFocus={true}                    //tự động điều hướng vào khung
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
           />
         </View>
-        <Button>Change</Button>
+        <View style={styles.locatedBtn}>
+          <Button style={[styles.btn, styles.logout]}>Change</Button>
+          <Button
+            style={[styles.btn, styles.logout]}
+            onPress={() => this.props.actions.logout()}>
+            LogOut
+          </Button>
+        </View>
       </View>
     );
   }
@@ -86,16 +90,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    fontSize: wp('10%'),
+    fontSize: wp('4%'),
     borderWidth: 3,
     opacity: 0.5,
-    color: '#FFFFFF',
+    // color: '#FFFFFF',
     borderRadius: 10,
     paddingLeft: 10,
     borderColor: '#6B6E70',
-    marginHorizontal: wp('5%'),
+    marginHorizontal: wp('3%'),
     marginVertical: wp('3%'),
-    width: wp('60%'),
+    width: wp('70%'),
     height: hp('8%'),
   },
   title: {
@@ -105,25 +109,50 @@ const styles = StyleSheet.create({
     marginBottom: hp('5%'),
   },
   text: {
+    fontSize: wp('5%'),
     paddingTop: hp('3%'),
-    width: wp('15 %'),
+    width: wp('20 %'),
+    marginLeft: 5,
+  },
+  btn: {
+    fontSize: 30,
+    width: wp('80'),
+    backgroundColor: '#86C232',
+    borderRadius: 30,
+    color: '#FFFFFF',
+    padding: wp('5%'),
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    marginVertical: wp('3%'),
+    justifyContent: 'center',
+  },
+  logout: {
+    fontSize: 20,
+    width: wp('30%'),
+    marginRight: wp('3%'),
+  },
+  locatedBtn: {
+    width: wp('90%'),
+    justifyContent: 'center',
+    flexDirection: 'row',
+    // marginTop: hp('-10%'),
   },
 });
 
-const mapStateToProps = state => {
-  return {
-    ...state,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     ...state,
+//   };
+// };
 
-function mapDispatchToProps(dispatch) {
-  const actions = {
-    ...action,
-  };
-  return {actions: bindActionCreators(actions, dispatch)};
-}
+// function mapDispatchToProps(dispatch) {
+//   const actions = {
+//     ...action,
+//   };
+//   return {actions: bindActionCreators(actions, dispatch)};
+// }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ManagerUser);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(ManagerUser);

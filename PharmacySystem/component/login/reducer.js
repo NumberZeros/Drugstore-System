@@ -17,7 +17,8 @@ const handleAction = (state = initialState, action) => {
   switch (action.type) {
     case actionType.LOGIN: {
       const {email, passWord} = action.data;
-      firebasesApp
+      console.log(email, passWord);
+      const db = firebasesApp
         .auth()
         .signInWithEmailAndPassword(email, passWord)
         .then(() => {
@@ -37,17 +38,36 @@ const handleAction = (state = initialState, action) => {
           return error;
         });
       const user = firebasesApp.auth().currentUser;
+      if (user.email === email) {
+        if (user.username && user.birthday) {
+          return {
+            ...state,
+            data: {
+              id: user.uid,
+              email: user.email,
+            },
+            isCheck: !state.isCheck,
+          };
+        } else {
+          return {
+            ...state,
+            data: {
+              id: user.uid,
+              email: user.email,
+            },
+            isCheck: !state.isCheck,
+          };
+        }
+      }
+      return state;
+    }
+    case actionType.LOGOUT: {
       return {
         ...state,
-        data: {
-          id: user.uid,
-          email: user.email,
-        },
         isCheck: !state.isCheck,
       };
     }
     case actionType.CHECKLOGIN: {
-      console.log(JSON.stringify(action));
       let db = firebase
         .firestore()
         .collection('User')
@@ -61,6 +81,22 @@ const handleAction = (state = initialState, action) => {
                 ...state,
                 isAcount: true,
               };
+            } else {
+              db = firebase
+                .firestore()
+                .collection('User')
+                .doc(state.data.id)
+                .set({
+                  email: state.data.email,
+                  },
+                  {merge: true},
+                )
+                .then(function() {
+                  console.log('Document successfully written!');
+                })
+                .catch(function(error) {
+                  console.error('Error writing document: ', error);
+                });
             }
           });
         })

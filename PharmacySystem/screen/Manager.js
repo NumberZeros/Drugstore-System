@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TextInput, StyleSheet, FlatList} from 'react-native';
 import Button from 'react-native-button';
-import Item from '../component/Item.catergories';
+import Item from './home/Item.catergories';
 
 export default class Manager extends React.Component {
   constructor(props) {

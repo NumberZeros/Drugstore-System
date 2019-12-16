@@ -9,10 +9,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-import {name} from './reducer';
-// import * as actions from './actions';
-// import firebasesApp from '../firebaseConfig';
-
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -24,10 +20,6 @@ export default class Login extends Component {
     };
   }
 
-  // componentDidMount(){
-  //   this.props.actions.checkLogin();
-  // }
-
   create = () => {
     const status = true;
     this.props.createAccount(status);
@@ -35,6 +27,7 @@ export default class Login extends Component {
   render() {
     const {data} = this.state;
     const {...actions} = this.props;
+    // console.log('haha', JSON.stringify(this.props));
     return (
       <View style={styles.login}>
         <TextInput
