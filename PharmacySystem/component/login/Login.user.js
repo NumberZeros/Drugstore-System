@@ -24,6 +24,15 @@ export default class Login extends Component {
     const status = true;
     this.props.createAccount(status);
   };
+  test = () => {
+    if (this.props.Login.data !== null) {
+      console.log(
+        'props',
+        JSON.stringify(this.props.Login) + '\n state',
+        JSON.stringify(this.state),
+      );
+    }
+  };
   render() {
     const {data} = this.state;
     const {...actions} = this.props;
@@ -34,7 +43,7 @@ export default class Login extends Component {
           style={styles.input}
           keyboardType="email-address"
           placeholder="Email"
-          data={data.email}
+          // data={data.email}
           // autoFocus={true}
           onChangeText={text =>
             this.setState({
@@ -49,7 +58,7 @@ export default class Login extends Component {
           style={styles.input}
           secureTextEntry={true}
           placeholder="PassWord"
-          data={data.passWord}
+          // data={data.passWord}
           onChangeText={text =>
             this.setState({
               data: {
@@ -71,6 +80,9 @@ export default class Login extends Component {
           </Button>
           <Button style={styles.btn} onPress={this.create}>
             Register
+          </Button>
+          <Button style={styles.btn} onPress={this.test}>
+            test
           </Button>
         </View>
       </View>

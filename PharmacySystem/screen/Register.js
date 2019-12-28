@@ -68,7 +68,7 @@ export default class Register extends Component {
     let db = firebase.firestore();
     db.collection('User')
       .add({
-        gmail: {email},
+        email,
       })
       .then(function(docRef) {
         console.log('Document written with ID: ', docRef.id);

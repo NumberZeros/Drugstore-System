@@ -32,36 +32,33 @@ class User extends React.Component {
   render() {
     const {idAcount, gmail, status} = this.state;
     const {data, isCheck} = this.props.Login;
-    console.log("haha",JSON.stringify(this.props));
+    console.log('haha', JSON.stringify(this.props));
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
         {isCheck === false ? (
           <Login {...this.props} createAccount={this.create} />
         ) : (
-          <Manager {...this.props} />
-          // <View style={styles.container}>
-          //   <Button
-          //     style={styles.btn}
-          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          //     Manager User
-          //   </Button>
-          //   <Button
-          //     style={styles.btn}
-          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          //     My WishList
-          //   </Button>
-          //   <Button
-          //     style={styles.btn}
-          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          //     DrugStore Mode
-          //   </Button>
-          //   <Button
-          //     style={styles.btn}
-          //     onPress={() => this.props.navigation.navigate('ManagerUser')}>
-          //     Change Password
-          //   </Button>
-          // </View>
+          //<Manager {...this.props} />
+          <View style={styles.container}>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerUser')}>
+              Manager User
+            </Button>
+            <Button style={styles.btn}>My WishList</Button>
+            <Button
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ManagerDrug')}>
+              DrugStore Mode
+            </Button>
+            <Button style={styles.btn}>Change Password</Button>
+            <Button
+              style={[styles.btn, styles.logout]}
+              onPress={() => this.props.actions.logout()}>
+              LogOut
+            </Button>
+          </View>
         )}
       </View>
     );

@@ -19,7 +19,7 @@ import {
 } from 'react-native-responsive-screen';
 import Button from 'react-native-button';
 
-export default class ManagerUser extends Component {
+class ManagerUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,18 +29,28 @@ export default class ManagerUser extends Component {
       birthday: '',
     };
   }
-  componentDidMount(){
-    const that = this;
-    const {id, email} = this.props.Login.data;
-    console.log('props', id, email);
-
-    that.setState({
+  componentDidMount() {
+    // const that = this;
+    const {id, email, username, birthday} = this.props.Login.data;
+    console.log('props', id, email, username);
+    this.setState({
       id,
       email,
+      username,
+      birthday,
     });
   }
+  test2 = () => {
+    console.log(
+      'state',
+      JSON.stringify(this.state) +
+        '\npropLogin: ' +
+        JSON.stringify(this.props.Login),
+    );
+  };
   render() {
-    const {data} = this.props.Login.data;
+    //const {username, birthday} = this.props.Login.data;
+    //this.state = this.props.Login.data;
     const {username, birthday} = this.state;
     return (
       <View style={styles.content}>
@@ -51,7 +61,7 @@ export default class ManagerUser extends Component {
           <Text style={styles.text}>User Name</Text>
           <TextInput
             style={styles.input}
-            onChangeText={e => this.setState({username: e, birthday: birthday})}
+            onChangeText={e => this.setState({username: e})}
             returnKeyType="User Name"
             value={username}
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
@@ -61,9 +71,9 @@ export default class ManagerUser extends Component {
           <Text style={styles.text}>BrithDay</Text>
           <TextInput
             style={styles.input}
-            onChangeText={e => this.setState({username: username, birthday: e})}
+            onChangeText={e => this.setState({birthday: e})}
             returnKeyType="BrithDay"
-            value={this.state.text}
+            value={birthday}
             onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
           />
         </View>
@@ -85,10 +95,18 @@ export default class ManagerUser extends Component {
             onPress={() => this.props.actions.updateInfo(this.state)}>
             Change
           </Button>
-          <Button
+          {/* <Button
             style={[styles.btn, styles.logout]}
             onPress={() => this.props.actions.logout()}>
             LogOut
+          </Button> */}
+          <Button
+            style={[styles.btn, styles.logout]}
+            onPress={() => this.props.navigation.goBack()}>
+            back
+          </Button>
+          <Button style={[styles.btn, styles.logout]} onPress={this.test2}>
+            test2
           </Button>
         </View>
       </View>
@@ -152,20 +170,20 @@ const styles = StyleSheet.create({
   },
 });
 
-// const mapStateToProps = state => {
-//   return {
-//     ...state,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    ...state,
+  };
+};
 
-// function mapDispatchToProps(dispatch) {
-//   const actions = {
-//     ...action,
-//   };
-//   return {actions: bindActionCreators(actions, dispatch)};
-// }
+function mapDispatchToProps(dispatch) {
+  const actions = {
+    ...action,
+  };
+  return {actions: bindActionCreators(actions, dispatch)};
+}
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(ManagerUser);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ManagerUser);

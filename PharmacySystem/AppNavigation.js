@@ -6,11 +6,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Home from './screen/home/Home';
 import Caterogies from './screen/home/catergories';
-import Register from './screen/Register';
-import Manager from './screen/Manager';
+
+import Manager from './screen/ManagerDrug/Manager';
+import AddDrug from './screen/ManagerDrug/AddDrug';
+
 import User from './screen/User';
-import ManagerUser from './component/login/Manager.user';
 import Login from './component/login/Login.user';
+import Register from './screen/Register';
+import ManagerUser from './component/login/Manager.user';
+import ManagerDrug from './component/login/Manager.drug';
 
 const RootStack = createBottomTabNavigator(
   {
@@ -47,9 +51,11 @@ export default createStackNavigator(
   {
     Home: {screen: RootStack},
     Details: {screen: Caterogies},
+    AddDrug: {screen: AddDrug},
     Login: {screen: Login},
     Register: {screen: Register},
     ManagerUser: {screen: ManagerUser},
+    ManagerDrug: {screen: ManagerDrug},
   },
   {
     headerMode: 'none',

@@ -1,7 +1,19 @@
 import React from 'react';
-import {View, TextInput, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import Button from 'react-native-button';
-import Item from './home/Item.catergories';
+import Item from '../home/Item.catergories';
+
+import Icon from 'react-native-vector-icons/Ionicons';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default class Manager extends React.Component {
   constructor(props) {
@@ -89,14 +101,6 @@ export default class Manager extends React.Component {
           image: 'http://dummyimage.com/100x100.png/ff4444/ffffff',
           Star: 10,
         },
-        {
-          Id: 11,
-          ProductName: 'a',
-          Amount: 11,
-          Price: '$16.10',
-          image: 'http://dummyimage.com/100x100.png/dddddd/000000',
-          Star: 11,
-        },
       ],
     };
   }
@@ -105,14 +109,20 @@ export default class Manager extends React.Component {
     const {value} = this.state;
 
     return (
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Searching..."
-          onChangeText={this.Change}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
-        <Button>Add</Button>
+      <View>
+        <View style={styles.locatedBtn}>
+          <TextInput
+            placeholder="Searching..."
+            onChangeText={this.Change}
+            style={styles.input}
+          />
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('AddDrug')}>
+            <Icon name="md-add-circle" color="#86C232" size={wp('18%')} />
+          </TouchableOpacity>
+        </View>
         <FlatList
+          //style={styles.flatList}
           data={value}
           renderItem={({item}) => <Item data={item} />}
           keyExtractor={item => item.Id.toString()}
@@ -122,8 +132,31 @@ export default class Manager extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {
+  content: {
     flex: 1,
-    paddingTop: 22,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  locatedBtn: {
+    width: wp('90%'),
+    justifyContent: 'center',
+    flexDirection: 'row',
+    // marginTop: hp('-10%'),
+  },
+  flatList: {
+    alignItems: 'stretch',
+  },
+  input: {
+    fontSize: wp('4%'),
+    borderWidth: 3,
+    opacity: 0.5,
+    // color: '#FFFFFF',
+    borderRadius: 10,
+    paddingLeft: 10,
+    borderColor: '#6B6E70',
+    marginHorizontal: wp('3%'),
+    marginVertical: wp('3%'),
+    width: wp('70%'),
+    height: hp('8%'),
   },
 });
