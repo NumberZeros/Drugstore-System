@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import {Overlay} from 'react-native-elements';
+
 
 import Button from 'react-native-button';
 import {
@@ -32,7 +34,7 @@ class User extends React.Component {
   render() {
     const {idAcount, gmail, status} = this.state;
     const {data, isCheck} = this.props.Login;
-    console.log("haha",JSON.stringify(this.props));
+    console.log('haha', JSON.stringify(this.props));
     return (
       <View style={styles.user}>
         {status === true && this.props.navigation.navigate('Register')}
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
   user: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     // backgroundColor: '#222629',
   },
   btn: {
