@@ -26,6 +26,15 @@ export default class Login extends Component {
     const status = true;
     this.props.createAccount(status);
   };
+  test = () => {
+    if (this.props.Login.data !== null) {
+      console.log(
+        'props',
+        JSON.stringify(this.props.Login) + '\n state',
+        JSON.stringify(this.state),
+      );
+    }
+  };
   render() {
     const {data} = this.state;
     const {...actions} = this.props;
@@ -83,6 +92,9 @@ export default class Login extends Component {
           </Button>
           <Button style={styles.btn} onPress={this.create}>
             Register
+          </Button>
+          <Button style={styles.btn} onPress={this.test}>
+            test
           </Button>
         </View>
       </View>

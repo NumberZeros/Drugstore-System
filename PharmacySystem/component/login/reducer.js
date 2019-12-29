@@ -7,29 +7,29 @@ import 'firebase/firestore';
 
 let initialState = {
   isCheck: false,
-  data: {},
+  data: {
+    // id: '',
+    // email: '',
+    // username: '',
+    // birthday: '',
+  },
   isAcount: false,
 };
 
 export const name = 'login';
-
 const handleAction = (state = initialState, action) => {
   switch (action.type) {
     case actionType.LOGIN: {
       const {email, passWord} = action.data;
       console.log(email, passWord);
-      const db = firebasesApp
+      let db = firebasesApp
         .auth()
         .signInWithEmailAndPassword(email, passWord)
         .then(() => {
           Alert.alert(
             'Đăng nhập thành công ' + `${email}`,
             'Cám ơn quí kháckh',
-            [
-              {
-                text: 'OK',
-              },
-            ],
+            [{text: 'OK'}],
             {cancelable: false},
           );
         })
@@ -40,25 +40,48 @@ const handleAction = (state = initialState, action) => {
       const user = firebasesApp.auth().currentUser;
       console.log(JSON.stringify(user));
       if (user.email === email) {
-        if (user.username && user.birthday) {
-          return {
-            ...state,
-            data: {
-              id: user.uid,
-              email: user.email,
-            },
-            isCheck: !state.isCheck,
-          };
-        } else {
-          return {
-            ...state,
-            data: {
-              id: user.uid,
-              email: user.email,
-            },
-            isCheck: !state.isCheck,
-          };
-        }
+        db = firebase
+          .firestore()
+          .collection('User')
+          .doc(user.uid)
+          .get()
+          .then(function(doc) {
+            state.data.username = doc.data().username;
+            state.data.birthday = doc.data().birthday;
+            state.data.id = user.uid;
+            state.data.email = user.email;
+            state.data.isStore = doc.data().isStore;
+            state.data.storename = doc.data().DrugMode.storename;
+            state.data.address = doc.data().DrugMode.address;
+            //state.isCheck = !state.isCheck;
+            // state = {
+            //   ...state,
+            //   isCheck: !state.isCheck,
+            //   data: {
+            //     username: doc.data().username,
+            //     birthday: doc.data().birthday,
+            //     id: user.uid,
+            //     email: user.email,
+            //   },
+            // };
+            console.log('Document data:', state);
+          })
+          .catch(err => {
+            console.log('loi khong lay dc doccument', err);
+          });
+
+        return {
+          //...state,
+          data: state.data,
+          //adasd: state.data.username,
+          // data: {
+          //   id: user.uid,
+          //   email: user.email,
+          //   username: state.data.username,
+          //   birthday: state.data.birthday,
+          // },
+          isCheck: !state.isCheck,
+        };
       }
       return state;
     }
@@ -69,6 +92,7 @@ const handleAction = (state = initialState, action) => {
       };
     }
     case actionType.CHECKLOGIN: {
+      let user = firebasesApp.auth().currentUser;
       let db = firebase
         .firestore()
         .collection('User')
@@ -77,24 +101,25 @@ const handleAction = (state = initialState, action) => {
           querySnapshot.forEach(doc => {
             //khi thực hiện thì nó sẽ trả về 2 thuộc tính id và data
             // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-            if (doc.id === state.data.id) {
+            if (doc.id === user.uid) {
               return {
                 ...state,
-                isAcount: true,
+                // isAcount: true,
               };
             } else {
               db = firebase
                 .firestore()
                 .collection('User')
-                .doc(state.data.id)
+                .doc(user.uid)
                 .set(
                   {
-                    email: state.data.email,
+                    email: user.email,
+                    isStore: false,
                   },
                   {merge: true},
                 )
                 .then(function() {
-                  console.log('Document successfully written!');
+                  //console.log('Document successfully written!');
                 })
                 .catch(function(error) {
                   console.error('Error writing document: ', error);
@@ -122,7 +147,57 @@ const handleAction = (state = initialState, action) => {
           {merge: true},
         )
         .then(function() {
-          console.log('UPdate success!');
+          const user = firebasesApp.auth().currentUser;
+          db = firebase
+            .firestore()
+            .collection('User')
+            .doc(user.uid)
+            .get()
+            .then(function(doc) {
+              state.data.username = doc.data().username;
+              state.data.birthday = doc.data().birthday;
+              console.log('load document data:', state);
+            })
+            .catch(err => {
+              console.log('loi khong lay dc doccument', err);
+            });
+        })
+        .catch(function(error) {
+          console.error('Error writing document: ', error);
+        });
+      return state;
+    }
+    case actionType.UPDATEDRUG: {
+      let db = firebase
+        .firestore()
+        .collection('User')
+        .doc(action.data.id)
+        .set(
+          {
+            isStore: true,
+            DrugMode: {
+              address: action.data.address,
+              storename: action.data.storename,
+            },
+          },
+          {merge: true},
+        )
+        .then(function() {
+          const user = firebasesApp.auth().currentUser;
+          db = firebase
+            .firestore()
+            .collection('User')
+            .doc(user.uid)
+            .get()
+            .then(function(doc) {
+              state.data.storename = doc.data().DrugMode.storename;
+              state.data.address = doc.data().DrugMode.address;
+              state.data.isStore = doc.data().DrugMode.isStore;
+              console.log('load document data:', state);
+            })
+            .catch(err => {
+              console.log('loi khong lay dc doccument', err);
+            });
         })
         .catch(function(error) {
           console.error('Error writing document: ', error);

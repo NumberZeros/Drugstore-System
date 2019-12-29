@@ -26,3 +26,9 @@ export function updateInfo(data) {
     data: data,
   };
 }
+export function updateDrug(data) {
+  return {
+    type: CONST.UPDATEDRUG,
+    data: data,
+  };
+}
