@@ -28,12 +28,12 @@ export default class Caterogies extends Component {
     this.ref = firebase.firestore().collection('Product');
   }
 
-  filteData = (text) => {
+  filteData = text => {
     const {value, filterData} = this.state;
     console.log(filterData);
     this.setState({
       filterData: text,
-    })
+    });
     var that = this;
     this.ref
       .get()
@@ -119,7 +119,11 @@ export default class Caterogies extends Component {
         </TouchableOpacity> */}
         <FlatList
           data={value}
-          renderItem={({item}) => <Card><Item data={item} /></Card>}
+          renderItem={({item}) => (
+            <Card>
+              <Item data={item} />
+            </Card>
+          )}
           keyExtractor={item => item.id.toString()}
         />
       </View>

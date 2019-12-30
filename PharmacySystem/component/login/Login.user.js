@@ -26,26 +26,14 @@ export default class Login extends Component {
     const status = true;
     this.props.createAccount(status);
   };
-  test = () => {
-    if (this.props.Login.data !== null) {
-      console.log(
-        'props',
-        JSON.stringify(this.props.Login) + '\n state',
-        JSON.stringify(this.state),
-      );
-    }
-  };
   render() {
     const {data} = this.state;
+    // console.log(data);
     const {...actions} = this.props;
-    // console.log('haha', JSON.stringify(this.props));
     return (
-      <View
-      // style={styles.login}
-      >
+      <View>
         <Card>
           <Input
-            // style={styles.input}
             keyboardType="email-address"
             placeholder="Email"
             style={{marginBottom: '20'}}
@@ -65,7 +53,6 @@ export default class Login extends Component {
             }
           />
           <Input
-            style={styles.input}
             secureTextEntry={true}
             placeholder="PassWord"
             data={data.passWord}
@@ -93,24 +80,8 @@ export default class Login extends Component {
           <Button style={styles.btn} onPress={this.create}>
             Register
           </Button>
-          <Button style={styles.btn} onPress={this.test}>
-            test
-          </Button>
         </View>
       </View>
-      // <View>
-      //   <Input placeholder="BASIC INPUT" />
-
-      //   <Input
-      //     placeholder="INPUT WITH ICON"
-      //     leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
-      //   />
-
-      //   <Input
-      //     placeholder="INPUT WITH CUSTOM ICON"
-      //     leftIcon={<Icon name="user" size={24} color="black" />}
-      //   />
-      // </View>
     );
   }
 }

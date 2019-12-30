@@ -71,20 +71,21 @@ const styles = StyleSheet.create({
   user: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: '#222629',
+
   },
   btn: {
     fontSize: 30,
-    width: wp('80'),
-    backgroundColor: '#86C232',
-    borderRadius: 30,
-    color: '#FFFFFF',
+    // width: wp('100%'),
+    color: '#000000',
+    // backgroundColor: '#86C232',
+    // borderRadius: 30,
+    borderBottomWidth: 1,
+    // color: '#FFFFFF',
     padding: wp('5%'),
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    marginVertical: wp('3%'),
-    justifyContent: 'center',
+    marginVertical: wp('5%'),
+    // justifyContent: 'center',
   },
   locatedBtn: {
     width: wp('90%'),
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   },
   container: {
     // flex: 1,
-    marginLeft: wp('10%'),
+    // marginLeft: wp('10%'),
   },
 });
 
