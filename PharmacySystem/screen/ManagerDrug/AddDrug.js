@@ -13,15 +13,34 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-export default class AddDrug extends Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as action from './actions';
+
+class AddDrug extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drugname: '',
+      nameproduct: '',
       price: 0,
+      id: '',
+      namestore: '',
     };
   }
-
+  componentDidMount() {
+    // const that = this;
+    const {id, namestore} = this.props.Login.data;
+    this.setState({
+      id,
+      namestore,
+    });
+  }
+  test = () => {
+    console.log(
+      'state',
+      JSON.stringify(this.state) + '\nprop: ' + JSON.stringify(this.props),
+    );
+  };
   render() {
     const {drugname, price} = this.state;
     return (
@@ -30,10 +49,10 @@ export default class AddDrug extends Component {
           <Icon name="image" color="#86C232" size={wp('40%')} />
         </TouchableOpacity>
         <View style={styles.title}>
-          <Text style={styles.text}>Drug Name</Text>
+          <Text style={styles.text}>Name Product</Text>
           <TextInput
             style={styles.input}
-            onChangeText={e => this.setState({drugname: e})}
+            onChangeText={e => this.setState({nameproduct: e})}
             returnKeyType="User Name"
             value={Text}
           />
@@ -51,6 +70,14 @@ export default class AddDrug extends Component {
           style={[styles.btn, styles.logout]}
           onPress={() => this.props.navigation.goBack()}>
           back
+        </Button>
+        <Button
+          style={[styles.btn, styles.logout]}
+          onPress={() => this.props.actions.AddDrug(this.state)}>
+          Add
+        </Button>
+        <Button style={[styles.btn, styles.logout]} onPress={this.test}>
+          test
         </Button>
       </View>
     );
@@ -112,3 +139,21 @@ const styles = StyleSheet.create({
     // marginTop: hp('-10%'),
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    ...state,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  const actions = {
+    ...action,
+  };
+  return {actions: bindActionCreators(actions, dispatch)};
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddDrug);
