@@ -28,7 +28,6 @@ export default class Login extends Component {
   };
   render() {
     const {data} = this.state;
-    // console.log(data);
     const {...actions} = this.props;
     return (
       <View>

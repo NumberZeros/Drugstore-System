@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Keyboard,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Keyboard, Text, TouchableOpacity} from 'react-native';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -18,6 +11,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Button from 'react-native-button';
+import {Input} from 'react-native-elements';
 
 class ManagerDrug extends Component {
   constructor(props) {
@@ -27,18 +21,27 @@ class ManagerDrug extends Component {
       email: '',
       namestore: '',
       address: '',
+      phone: '',
       isStore: false,
     };
   }
   componentDidMount() {
     // const that = this;
-    const {id, email, namestore, address, isStore} = this.props.Login.data;
-    console.log('props', id, email, namestore);
+    const {
+      id,
+      email,
+      namestore,
+      address,
+      phone,
+      isStore,
+    } = this.props.Login.data;
+    console.log('props', id, email, namestore, phone);
     this.setState({
       id,
       email,
       namestore,
       address,
+      phone,
       isStore,
     });
   }
@@ -51,48 +54,62 @@ class ManagerDrug extends Component {
     );
   };
   render() {
-    //const {username, birthday} = this.props.Login.data;
-    //this.state = this.props.Login.data;
-    const {namestore, address, isStore} = this.state;
+    const {namestore, address, phone, isStore} = this.state;
+    // cons
     if (isStore === true) {
       return (
         <View style={styles.content}>
-          <TouchableOpacity style={styles.headIcon}>
-            <Icon name="user" color="#86C232" size={wp('30%')} />
-          </TouchableOpacity>
+          <View style={{alignSelf: 'flex-start'}}>
+            <Button
+              style={styles.logout}
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon
+                name="chevron-left"
+                color="#4860F8"
+                size={30}
+                style={{marginRight: wp('3%')}}
+              />
+            </Button>
+          </View>
+          <Text style={{fontSize: hp('5%')}}> Update Drugstore</Text>
           <View style={styles.title}>
-            <Text style={styles.text}>Store Name</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={e => this.setState({namestore: e})}
-              returnKeyType="Store Name"
-              value={namestore}
-              onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-            />
+            <Text style={styles.text}>Store Name:</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({namestore: e})}
+                value={namestore}
+                onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+              />
+            </View>
           </View>
           <View style={styles.title}>
-            <Text style={styles.text}>address</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={e => this.setState({address: e})}
-              returnKeyType="Drug Name"
-              value={address}
-              onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-            />
+            <Text style={styles.text}>Address:</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({address: e})}
+                value={address}
+                onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+              />
+            </View>
+          </View>
+          <View style={styles.title}>
+            <Text style={styles.text}>Phone Number:</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({phone: e})}
+                value={phone}
+                onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+              />
+            </View>
           </View>
           <View style={styles.locatedBtn}>
             <Button
-              style={[styles.btn, styles.logout]}
+              style={styles.btn}
               onPress={() => this.props.actions.updateDrug(this.state)}>
-              change
-            </Button>
-            <Button
-              style={[styles.btn, styles.logout]}
-              onPress={() => this.props.navigation.goBack()}>
-              back
-            </Button>
-            <Button style={[styles.btn, styles.logout]} onPress={this.test2}>
-              test2
+              Update Drug
             </Button>
           </View>
         </View>
@@ -100,45 +117,57 @@ class ManagerDrug extends Component {
     } else {
       return (
         <View style={styles.content}>
-          <TouchableOpacity style={styles.headIcon}>
-            <Icon name="user" color="#86C232" size={wp('30%')} />
-          </TouchableOpacity>
+          <View style={{alignSelf: 'flex-start'}}>
+            <Button
+              style={styles.logout}
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon
+                name="chevron-left"
+                color="#4860F8"
+                size={30}
+                style={{marginRight: wp('3%')}}
+              />
+            </Button>
+          </View>
+          <Text style={{fontSize: hp('5%')}}> Register Drugstore</Text>
           <View style={styles.title}>
-            <Text style={styles.text}>dang ky la nha thuoc</Text>
+            <Text style={styles.text}>Store Name:</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({namestore: e})}
+                value={namestore}
+                onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+              />
+            </View>
           </View>
           <View style={styles.title}>
-            <Text style={styles.text}>Store Name</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={e => this.setState({namestore: e})}
-              returnKeyType="Drug Name"
-              value={namestore}
-              onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-            />
+            <Text style={styles.text}>Address:</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({address: e})}
+                value={address}
+                onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+              />
+            </View>
           </View>
           <View style={styles.title}>
-            <Text style={styles.text}>address</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={e => this.setState({address: e})}
-              returnKeyType="address"
-              value={address}
-              onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-            />
+            <Text style={styles.text}>Phone Number:</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({phone: e})}
+                value={phone}
+                onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+              />
+            </View>
           </View>
           <View style={styles.locatedBtn}>
             <Button
-              style={[styles.btn, styles.logout]}
+              style={styles.btn}
               onPress={() => this.props.actions.updateDrug(this.state)}>
-              RegisterDrug
-            </Button>
-            <Button
-              style={[styles.btn, styles.logout]}
-              onPress={() => this.props.navigation.goBack()}>
-              back
-            </Button>
-            <Button style={[styles.btn, styles.logout]} onPress={this.test2}>
-              test2
+              Register Drug
             </Button>
           </View>
         </View>
@@ -149,20 +178,12 @@ class ManagerDrug extends Component {
 
 const styles = StyleSheet.create({
   content: {
+    marginTop: hp('3%'),
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   input: {
-    fontSize: wp('4%'),
-    borderWidth: 3,
-    opacity: 0.5,
-    // color: '#FFFFFF',
-    borderRadius: 10,
-    paddingLeft: 10,
-    borderColor: '#6B6E70',
-    marginHorizontal: wp('3%'),
-    marginVertical: wp('3%'),
     width: wp('70%'),
     height: hp('8%'),
   },
@@ -173,27 +194,28 @@ const styles = StyleSheet.create({
     marginBottom: hp('5%'),
   },
   text: {
-    fontSize: wp('5%'),
+    fontSize: wp('4%'),
     paddingTop: hp('3%'),
     width: wp('20 %'),
-    marginLeft: 5,
   },
   btn: {
-    fontSize: 30,
-    width: wp('80'),
-    backgroundColor: '#86C232',
+    fontSize: 20,
+    width: wp('60'),
+    borderWidth: 1,
+    borderColor: '#86C232',
     borderRadius: 30,
-    color: '#FFFFFF',
+    color: '#86C232',
     padding: wp('5%'),
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    marginVertical: wp('3%'),
-    justifyContent: 'center',
+    // marginVertical: wp('3%'),
+    // justifyContent: 'center',
   },
   logout: {
+    left: wp('-30%'),
     fontSize: 20,
     width: wp('30%'),
-    marginRight: wp('3%'),
+    marginRight: wp('50%'),
   },
   locatedBtn: {
     width: wp('90%'),

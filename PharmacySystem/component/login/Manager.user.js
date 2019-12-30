@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Keyboard,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Keyboard, Text, TouchableOpacity} from 'react-native';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -18,6 +11,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Button from 'react-native-button';
+import {Input} from 'react-native-elements';
 
 class ManagerUser extends Component {
   constructor(props) {
@@ -40,73 +34,68 @@ class ManagerUser extends Component {
       birthday,
     });
   }
-  test2 = () => {
-    console.log(
-      'state',
-      JSON.stringify(this.state) +
-        '\npropLogin: ' +
-        JSON.stringify(this.props.Login),
-    );
-  };
+
   render() {
     //const {username, birthday} = this.props.Login.data;
     //this.state = this.props.Login.data;
     const {username, birthday} = this.state;
+    // console.log(username);
     return (
       <View style={styles.content}>
+        <View style={{alignSelf: 'flex-start'}}>
+          <Button
+            style={styles.logout}
+            onPress={() => this.props.navigation.goBack()}>
+            <Icon
+              name="chevron-left"
+              color="#4860F8"
+              size={30}
+              style={{marginRight: wp('3%')}}
+            />
+          </Button>
+        </View>
         <TouchableOpacity style={styles.headIcon}>
           <Icon name="user" color="#86C232" size={wp('30%')} />
         </TouchableOpacity>
         <View style={styles.title}>
-          <Text style={styles.text}>User Name</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={e => this.setState({username: e})}
-            returnKeyType="User Name"
-            value={username}
-            onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-          />
+          <Text style={styles.text}>User Name:</Text>
+          <View style={styles.input}>
+            <Input
+              onChangeText={e => this.setState({username: e})}
+              returnKeyType="User Name"
+              value={username}
+              onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+            />
+          </View>
         </View>
         <View style={styles.title}>
-          <Text style={styles.text}>BrithDay</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={e => this.setState({birthday: e})}
-            returnKeyType="BrithDay"
-            value={birthday}
-            onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-          />
+          <Text style={styles.text}>BrithDay:</Text>
+          <View style={styles.input}>
+            <Input
+              onChangeText={e => this.setState({birthday: e})}
+              returnKeyType="BrithDay"
+              value={birthday}
+              onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+            />
+          </View>
         </View>
         <View style={styles.title}>
-          <Text style={styles.text}>Email</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={this.Change}
-            // onKeyPress={this.enter}
-            returnKeyType="Email"
-            value={this.props.Login.data.email}
-            // autoFocus={true}                    //tự động điều hướng vào khung
-            onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-          />
+          <Text style={styles.text}>Email:</Text>
+          <View style={styles.input}>
+            <Input
+              onChangeText={this.Change}
+              returnKeyType="Email"
+              value={this.props.Login.data.email}
+              // autoFocus={true}          //tự động điều hướng vào khung
+              onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+            />
+          </View>
         </View>
         <View style={styles.locatedBtn}>
           <Button
-            style={[styles.btn, styles.logout]}
+            style={styles.btn}
             onPress={() => this.props.actions.updateInfo(this.state)}>
-            Change
-          </Button>
-          {/* <Button
-            style={[styles.btn, styles.logout]}
-            onPress={() => this.props.actions.logout()}>
-            LogOut
-          </Button> */}
-          <Button
-            style={[styles.btn, styles.logout]}
-            onPress={() => this.props.navigation.goBack()}>
-            back
-          </Button>
-          <Button style={[styles.btn, styles.logout]} onPress={this.test2}>
-            test2
+            Update Info
           </Button>
         </View>
       </View>
@@ -116,20 +105,12 @@ class ManagerUser extends Component {
 
 const styles = StyleSheet.create({
   content: {
+    marginTop: hp('3%'),
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   input: {
-    fontSize: wp('4%'),
-    borderWidth: 3,
-    opacity: 0.5,
-    // color: '#FFFFFF',
-    borderRadius: 10,
-    paddingLeft: 10,
-    borderColor: '#6B6E70',
-    marginHorizontal: wp('3%'),
-    marginVertical: wp('3%'),
     width: wp('70%'),
     height: hp('8%'),
   },
@@ -140,17 +121,19 @@ const styles = StyleSheet.create({
     marginBottom: hp('5%'),
   },
   text: {
-    fontSize: wp('5%'),
+    fontSize: wp('4%'),
     paddingTop: hp('3%'),
     width: wp('20 %'),
-    marginLeft: 5,
+    // marginRight: wp('20%'),
+    // marginLeft: wp('10%'),
   },
   btn: {
-    fontSize: 30,
-    width: wp('80'),
-    backgroundColor: '#86C232',
+    fontSize: 20,
+    width: wp('60'),
+    borderWidth: 1,
+    borderColor: '#86C232',
     borderRadius: 30,
-    color: '#FFFFFF',
+    color: '#86C232',
     padding: wp('5%'),
     shadowOpacity: 0.5,
     shadowRadius: 3,
@@ -158,9 +141,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logout: {
+    left: wp('-30%'),
     fontSize: 20,
     width: wp('30%'),
-    marginRight: wp('3%'),
+    marginRight: wp('50%'),
   },
   locatedBtn: {
     width: wp('90%'),
