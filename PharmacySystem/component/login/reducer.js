@@ -50,7 +50,7 @@ const handleAction = (state = initialState, action) => {
             state.data.id = user.uid;
             state.data.email = user.email;
             state.data.isStore = doc.data().isStore;
-            state.data.storename = doc.data().DrugMode.storename;
+            state.data.namestore = doc.data().DrugMode.namestore;
             state.data.address = doc.data().DrugMode.address;
             //state.isCheck = !state.isCheck;
             // state = {
@@ -70,7 +70,7 @@ const handleAction = (state = initialState, action) => {
           });
 
         return {
-          //...state,
+          ...state,
           data: state.data,
           //adasd: state.data.username,
           // data: {
@@ -113,7 +113,6 @@ const handleAction = (state = initialState, action) => {
                 .set(
                   {
                     email: user.email,
-                    isStore: false,
                   },
                   {merge: true},
                 )
@@ -176,7 +175,7 @@ const handleAction = (state = initialState, action) => {
             isStore: true,
             DrugMode: {
               address: action.data.address,
-              storename: action.data.storename,
+              namestore: action.data.namestore,
             },
           },
           {merge: true},
@@ -189,9 +188,9 @@ const handleAction = (state = initialState, action) => {
             .doc(user.uid)
             .get()
             .then(function(doc) {
-              state.data.storename = doc.data().DrugMode.storename;
+              state.data.namestore = doc.data().DrugMode.namestore;
               state.data.address = doc.data().DrugMode.address;
-              state.data.isStore = doc.data().DrugMode.isStore;
+              state.data.isStore = doc.data().isStore;
               console.log('load document data:', state);
             })
             .catch(err => {

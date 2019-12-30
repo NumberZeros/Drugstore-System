@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 import Button from 'react-native-button';
 import Item from '../home/Item.catergories';
@@ -15,7 +16,9 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-export default class Manager extends React.Component {
+import {connect} from 'react-redux';
+
+class Manager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -77,58 +80,48 @@ export default class Manager extends React.Component {
           image: 'http://dummyimage.com/100x100.png/ff4444/ffffff',
           Star: 7,
         },
-        {
-          Id: 8,
-          ProductName: 'Sorrel',
-          Amount: 18,
-          Price: '$87.07',
-          image: 'http://dummyimage.com/100x100.png/dddddd/000000',
-          Star: 8,
-        },
-        {
-          Id: 9,
-          ProductName: 'Brownies',
-          Amount: 25,
-          Price: '$69.94',
-          image: 'http://dummyimage.com/100x100.png/cc0000/ffffff',
-          Star: 9,
-        },
-        {
-          Id: 10,
-          ProductName: 'Croissants',
-          Amount: 46,
-          Price: '$33.42',
-          image: 'http://dummyimage.com/100x100.png/ff4444/ffffff',
-          Star: 10,
-        },
       ],
     };
   }
-
+  test = () => {
+    console.log('\nprop: ' + JSON.stringify(this.props));
+  };
   render() {
     const {value} = this.state;
-
-    return (
-      <View>
-        <View style={styles.locatedBtn}>
-          <TextInput
-            placeholder="Searching..."
-            onChangeText={this.Change}
-            style={styles.input}
+    if (this.props.Login.isCheck === true) {
+      return (
+        <View>
+          <View style={styles.locatedBtn}>
+            <TextInput
+              placeholder="Searching..."
+              onChangeText={this.Change}
+              style={styles.input}
+            />
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('AddDrug')}>
+              <Icon name="md-add-circle" color="#86C232" size={wp('18%')} />
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            //style={styles.flatList}
+            data={value}
+            renderItem={({item}) => <Item data={item} />}
+            keyExtractor={item => item.Id.toString()}
           />
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('AddDrug')}>
-            <Icon name="md-add-circle" color="#86C232" size={wp('18%')} />
-          </TouchableOpacity>
         </View>
-        <FlatList
-          //style={styles.flatList}
-          data={value}
-          renderItem={({item}) => <Item data={item} />}
-          keyExtractor={item => item.Id.toString()}
-        />
-      </View>
-    );
+      );
+    } else {
+      return (
+        <View>
+          <Text>
+            ban can dang nhap va dang ky nha thuoc de thuc hien chuc nang nay
+          </Text>
+          <Button style={[styles.btn, styles.logout]} onPress={this.test}>
+            test
+          </Button>
+        </View>
+      );
+    }
   }
 }
 const styles = StyleSheet.create({
@@ -160,3 +153,11 @@ const styles = StyleSheet.create({
     height: hp('8%'),
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps)(Manager);

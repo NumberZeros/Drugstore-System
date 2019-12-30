@@ -1,6 +1,6 @@
 import * as CONST from './constant';
 
-export function adddrug(data) {
+export function AddDrug(data) {
   return {
     type: CONST.ADDDRUG,
     data: data,

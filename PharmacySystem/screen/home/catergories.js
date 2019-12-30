@@ -11,7 +11,7 @@ import {
 import Button from 'react-native-button';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import firebasesApp from '../../component/firebaseConfig';
-import Icon from 'react-native-vector-icons/FontAwesome';;
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as firebase from 'firebase';
 

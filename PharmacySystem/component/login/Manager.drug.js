@@ -25,19 +25,19 @@ class ManagerDrug extends Component {
     this.state = {
       id: '',
       email: '',
-      storename: '',
+      namestore: '',
       address: '',
       isStore: false,
     };
   }
   componentDidMount() {
     // const that = this;
-    const {id, email, storename, address, isStore} = this.props.Login.data;
-    console.log('props', id, email, storename);
+    const {id, email, namestore, address, isStore} = this.props.Login.data;
+    console.log('props', id, email, namestore);
     this.setState({
       id,
       email,
-      storename,
+      namestore,
       address,
       isStore,
     });
@@ -53,7 +53,7 @@ class ManagerDrug extends Component {
   render() {
     //const {username, birthday} = this.props.Login.data;
     //this.state = this.props.Login.data;
-    const {storename, address, isStore} = this.state;
+    const {namestore, address, isStore} = this.state;
     if (isStore === true) {
       return (
         <View style={styles.content}>
@@ -64,9 +64,9 @@ class ManagerDrug extends Component {
             <Text style={styles.text}>Store Name</Text>
             <TextInput
               style={styles.input}
-              onChangeText={e => this.setState({storename: e})}
+              onChangeText={e => this.setState({namestore: e})}
               returnKeyType="Store Name"
-              value={storename}
+              value={namestore}
               onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
             />
           </View>
@@ -110,9 +110,9 @@ class ManagerDrug extends Component {
             <Text style={styles.text}>Store Name</Text>
             <TextInput
               style={styles.input}
-              onChangeText={e => this.setState({storename: e})}
+              onChangeText={e => this.setState({namestore: e})}
               returnKeyType="Drug Name"
-              value={storename}
+              value={namestore}
               onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
             />
           </View>
