@@ -38,6 +38,7 @@ const handleAction = (state = initialState, action) => {
           return error;
         });
       const user = firebasesApp.auth().currentUser;
+      console.log(JSON.stringify(user));
       if (user.email === email) {
         db = firebase
           .firestore()

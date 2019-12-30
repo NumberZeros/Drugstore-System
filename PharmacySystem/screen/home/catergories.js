@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Button from 'react-native-button';
+import {SearchBar, Card} from 'react-native-elements';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import firebasesApp from '../../component/firebaseConfig';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -27,9 +28,12 @@ export default class Caterogies extends Component {
     this.ref = firebase.firestore().collection('Product');
   }
 
-  filteData = () => {
+  filteData = text => {
     const {value, filterData} = this.state;
     console.log(filterData);
+    this.setState({
+      filterData: text,
+    });
     var that = this;
     this.ref
       .get()
@@ -43,7 +47,8 @@ export default class Caterogies extends Component {
         });
         const values = temp.filter(
           item =>
-            item.nameproduct.toLowerCase()
+            item.nameproduct
+              .toLowerCase()
               .trim()
               .indexOf(
                 filterData
@@ -77,7 +82,8 @@ export default class Caterogies extends Component {
         });
         const values = temp.filter(
           item =>
-            item.nameproduct.toLowerCase()
+            item.nameproduct
+              .toLowerCase()
               .trim()
               .indexOf(
                 filterData
@@ -98,23 +104,26 @@ export default class Caterogies extends Component {
     const {value, filterData} = this.state;
     return (
       <View>
-        <View style={styles.fillter}>
-          <TextInput
-            style={styles.input}
-            onChangeText={e => this.setState({filterData: e})}
-            returnKeyType="search"
-            value={filterData}
-            onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-          />
-          <TouchableOpacity style={styles.fill} onPress={this.filteData}>
-            <View>
-              <Icon name="search" color="#86C232" size={45} />
-            </View>
-          </TouchableOpacity>
-        </View>
+        <SearchBar
+          placeholder="Type Here..."
+          onChangeText={e => this.setState({filterData: e})}
+          returnKeyType="search"
+          onChangeText={this.filteData}
+          value={filterData}
+          onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
+        />
+        {/* <TouchableOpacity style={styles.fill} onPress={this.filteData}>
+          <View>
+            <Icon name="search" color="#86C232" size={45} />
+          </View>
+        </TouchableOpacity> */}
         <FlatList
           data={value}
-          renderItem={({item}) => <Item data={item} />}
+          renderItem={({item}) => (
+            <Card>
+              <Item data={item} />
+            </Card>
+          )}
           keyExtractor={item => item.id.toString()}
         />
       </View>

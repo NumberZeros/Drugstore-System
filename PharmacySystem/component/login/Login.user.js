@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
-import {View, TextInput, StyleSheet, Alert} from 'react-native';
+import {View, StyleSheet, Alert} from 'react-native';
 import {connect} from 'react-redux';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Material from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Input, Card} from 'react-native-elements';
 import Button from 'react-native-button';
 import {
   widthPercentageToDP as wp,
@@ -24,50 +26,47 @@ export default class Login extends Component {
     const status = true;
     this.props.createAccount(status);
   };
-  test = () => {
-    if (this.props.Login.data !== null) {
-      console.log(
-        'props',
-        JSON.stringify(this.props.Login) + '\n state',
-        JSON.stringify(this.state),
-      );
-    }
-  };
   render() {
     const {data} = this.state;
+    // console.log(data);
     const {...actions} = this.props;
-    // console.log('haha', JSON.stringify(this.props));
     return (
-      <View style={styles.login}>
-        <TextInput
-          style={styles.input}
-          keyboardType="email-address"
-          placeholder="Email"
-          // data={data.email}
-          // autoFocus={true}
-          onChangeText={text =>
-            this.setState({
-              data: {
-                email: text,
-                password: data.passWord,
-              },
-            })
-          }
-        />
-        <TextInput
-          style={styles.input}
-          secureTextEntry={true}
-          placeholder="PassWord"
-          // data={data.passWord}
-          onChangeText={text =>
-            this.setState({
-              data: {
-                email: data.email,
-                passWord: text,
-              },
-            })
-          }
-        />
+      <View>
+        <Card>
+          <Input
+            keyboardType="email-address"
+            placeholder="Email"
+            style={{marginBottom: '20'}}
+            leftIcon={{
+              type: 'MaterialCommunityIcons',
+              name: 'email',
+            }}
+            data={data.email}
+            // autoFocus={true}
+            onChangeText={text =>
+              this.setState({
+                data: {
+                  email: text,
+                  password: data.passWord,
+                },
+              })
+            }
+          />
+          <Input
+            secureTextEntry={true}
+            placeholder="PassWord"
+            data={data.passWord}
+            leftIcon={{type: 'font-awesome', name: 'lock'}}
+            onChangeText={text =>
+              this.setState({
+                data: {
+                  email: data.email,
+                  passWord: text,
+                },
+              })
+            }
+          />
+        </Card>
         <View style={styles.formatBtn}>
           <Button
             style={styles.btn}
@@ -80,9 +79,6 @@ export default class Login extends Component {
           </Button>
           <Button style={styles.btn} onPress={this.create}>
             Register
-          </Button>
-          <Button style={styles.btn} onPress={this.test}>
-            test
           </Button>
         </View>
       </View>
@@ -103,11 +99,11 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: wp('5%'),
-    borderWidth: 3,
+    // borderWidth: 3,
     opacity: 0.5,
     width: wp('80%'),
-    color: '#474b4f',
-    borderRadius: 10,
+    // color: '#474b4f',
+    // borderRadius: 10,
     paddingLeft: 10,
     borderColor: '#6B6E70',
     marginVertical: wp('3%'),

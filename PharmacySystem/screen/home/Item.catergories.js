@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {ActivityIndicator} from 'react-native';
+
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Image} from 'react-native-elements';
 
 import Button from 'react-native-button';
 import {
@@ -9,15 +12,26 @@ import {
 
 export default class Item extends Component {
   render() {
-    const {Id, nameproduct, namestore, price} = this.props.data;
+    const {Id, nameproduct, namestore, price, image} = this.props.data;
     return (
       <View style={styles.item}>
         <View style={styles.image}>
           <TouchableOpacity>
-            {/* <Image
-              style={{width: wp('30%'), height: hp('18%')}}
-              source={{uri: `${image}`}}
-            /> */}
+            {image ? (
+              <Image
+                style={{width: wp('30%'), height: hp('18%')}}
+                source={{uri: `${image}`}}
+                PlaceholderContent={<ActivityIndicator />}
+              />
+            ) : (
+              <Image
+                style={{width: wp('30%'), height: hp('18%')}}
+                source={{
+                  uri: 'https://dummyimage.com/150x150.jpg/cc0000/ffffff',
+                }}
+                PlaceholderContent={<ActivityIndicator />}
+              />
+            )}
           </TouchableOpacity>
         </View>
         <View style={styles.content}>
@@ -50,12 +64,8 @@ const styles = StyleSheet.create({
     marginTop: hp('1%'),
     height: hp('20%'),
     marginHorizontal: hp('1%'),
-    borderColor: '#6B6E70',
-    borderBottomWidth: 1,
   },
   image: {
-    borderColor: '#AAAAAA',
-    borderWidth: 1,
     width: wp('30%'),
   },
   content: {
