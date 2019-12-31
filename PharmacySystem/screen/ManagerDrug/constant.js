@@ -1,3 +1,4 @@
 export const ADDDRUG = 'MANAGERDRUG/ADDDRUG';
 export const LOADDATA = 'LOADDATA';
-export const LOADDATASUCCESS ='LOADDATASUCCESS';
+export const DELETE = 'DELETE';
+export const UPDATEDATA = 'UPDATEDATA';
