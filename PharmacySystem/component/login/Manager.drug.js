@@ -45,14 +45,6 @@ class ManagerDrug extends Component {
       isStore,
     });
   }
-  test2 = () => {
-    console.log(
-      'state',
-      JSON.stringify(this.state) +
-        '\npropDrug: ' +
-        JSON.stringify(this.props.Login),
-    );
-  };
   render() {
     const {namestore, address, phone, isStore} = this.state;
     // cons
@@ -107,9 +99,14 @@ class ManagerDrug extends Component {
           </View>
           <View style={styles.locatedBtn}>
             <Button
-              style={styles.btn}
+              style={[styles.btn,{width: wp('40%'), marginRight: wp('1')}]}
               onPress={() => this.props.actions.updateDrug(this.state)}>
               Update Drug
+            </Button>
+            <Button
+              style={[styles.btn, {color: '#00FFFF', borderColor: '#00FFFF'}]}
+              onPress={() => this.props.navigation.navigate('Manager')}>
+              Manager Product
             </Button>
           </View>
         </View>
@@ -200,7 +197,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     fontSize: 20,
-    width: wp('60'),
+    width: wp('50'),
     borderWidth: 1,
     borderColor: '#86C232',
     borderRadius: 30,

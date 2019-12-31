@@ -7,12 +7,7 @@ import 'firebase/firestore';
 
 let initialState = {
   isCheck: false,
-  data: {
-    // id: '',
-    // email: '',
-    // username: '',
-    // birthday: '',
-  },
+  data: {},
   isAcount: false,
 };
 
@@ -25,6 +20,7 @@ const handleAction = (state = initialState, action) => {
       let db = firebasesApp
         .auth()
         .signInWithEmailAndPassword(email, passWord)
+        .then()
         .catch(function(error) {
           Alert.alert('Vui lòng kiểm tra lại email hoặc password');
           return error;
@@ -42,11 +38,12 @@ const handleAction = (state = initialState, action) => {
             state.data.birthday = doc.data().birthday;
             state.data.id = user.uid;
             state.data.email = user.email;
-            state.data.isStore = doc.data().isStore;
-            state.data.namestore = doc.data().DrugMode.namestore;
-            state.data.address = doc.data().DrugMode.address;
-            state.data.phone = doc.data().DrugMode.phone;
-
+            if (doc.data().isStore === true) {
+              state.data.isStore = doc.data().isStore;
+              state.data.namestore = doc.data().DrugMode.namestore;
+              state.data.address = doc.data().DrugMode.address;
+              state.data.phone = doc.data().DrugMode.phone;
+            }
             console.log('Document data:', state);
           })
           .catch(err => {

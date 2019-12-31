@@ -6,3 +6,17 @@ export function AddDrug(data) {
     data: data,
   };
 }
+
+export function loadData(id) {
+  return {
+    type: CONST.LOADDATA,
+    id: id,
+  };
+}
+
+export function loadDataSuccess(data) {
+  return {
+    type: CONST.LOADDATASUCCESS,
+    data: data,
+  };
+}

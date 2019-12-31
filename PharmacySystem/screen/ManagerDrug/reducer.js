@@ -1,5 +1,6 @@
 import {Alert} from 'react-native';
 import * as actionType from './constant';
+import * as actions from './actions';
 
 import firebasesApp from '../../component/firebaseConfig';
 import * as firebase from 'firebase';
@@ -19,9 +20,12 @@ export default function handleAction(state = initialState, action) {
           price: action.data.price,
           idStore: action.data.id,
           namestore: action.data.namestore,
+          ngayhethan: action.data.ngayhethan,
+          shape: action.data.shape,
+          lo: action.data.lo,
         })
         .then(function(docRef) {
-          console.log('Document written with ID: ', docRef.id);
+          state.data = [];
         })
         .catch(function(error) {
           console.error('Error adding document: ', error);
