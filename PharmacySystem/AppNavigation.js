@@ -10,7 +10,7 @@ import Caterogies from './screen/home/catergories';
 import Manager from './screen/ManagerDrug/Manager';
 import AddDrug from './screen/ManagerDrug/AddDrug';
 
-import User from './screen/User';
+import User from './component/login/User';
 import Login from './component/login/Login.user';
 import Register from './screen/Register';
 import ManagerUser from './component/login/Manager.user';

@@ -25,20 +25,12 @@ const handleAction = (state = initialState, action) => {
       let db = firebasesApp
         .auth()
         .signInWithEmailAndPassword(email, passWord)
-        .then(() => {
-          Alert.alert(
-            'Đăng nhập thành công ' + `${email}`,
-            'Cám ơn quí kháckh',
-            [{text: 'OK'}],
-            {cancelable: false},
-          );
-        })
         .catch(function(error) {
           Alert.alert('Vui lòng kiểm tra lại email hoặc password');
           return error;
         });
       const user = firebasesApp.auth().currentUser;
-      console.log(JSON.stringify(user));
+      // console.log('user',JSON.stringify(user));
       if (user.email === email) {
         db = firebase
           .firestore()
@@ -53,17 +45,8 @@ const handleAction = (state = initialState, action) => {
             state.data.isStore = doc.data().isStore;
             state.data.namestore = doc.data().DrugMode.namestore;
             state.data.address = doc.data().DrugMode.address;
-            //state.isCheck = !state.isCheck;
-            // state = {
-            //   ...state,
-            //   isCheck: !state.isCheck,
-            //   data: {
-            //     username: doc.data().username,
-            //     birthday: doc.data().birthday,
-            //     id: user.uid,
-            //     email: user.email,
-            //   },
-            // };
+            state.data.phone = doc.data().DrugMode.phone;
+
             console.log('Document data:', state);
           })
           .catch(err => {
@@ -73,13 +56,6 @@ const handleAction = (state = initialState, action) => {
         return {
           ...state,
           data: state.data,
-          //adasd: state.data.username,
-          // data: {
-          //   id: user.uid,
-          //   email: user.email,
-          //   username: state.data.username,
-          //   birthday: state.data.birthday,
-          // },
           isCheck: !state.isCheck,
         };
       }
@@ -88,6 +64,7 @@ const handleAction = (state = initialState, action) => {
     case actionType.LOGOUT: {
       return {
         ...state,
+        data: null,
         isCheck: !state.isCheck,
       };
     }
@@ -134,6 +111,7 @@ const handleAction = (state = initialState, action) => {
       };
     }
     case actionType.UPDATEINFO: {
+      // console.log(action.data);
       let db = firebase
         .firestore()
         .collection('User')
@@ -177,6 +155,7 @@ const handleAction = (state = initialState, action) => {
             DrugMode: {
               address: action.data.address,
               namestore: action.data.namestore,
+              phone: action.data.phone,
             },
           },
           {merge: true},
@@ -189,8 +168,10 @@ const handleAction = (state = initialState, action) => {
             .doc(user.uid)
             .get()
             .then(function(doc) {
+              console.log('doc', doc.data());
               state.data.namestore = doc.data().DrugMode.namestore;
               state.data.address = doc.data().DrugMode.address;
+              state.data.phone = doc.data().DrugMode.phone;
               state.data.isStore = doc.data().isStore;
               console.log('load document data:', state);
             })

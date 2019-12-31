@@ -1,18 +1,7 @@
 import React, {Component} from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Keyboard,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Keyboard, FlatList} from 'react-native';
 
-import Button from 'react-native-button';
 import {SearchBar, Card} from 'react-native-elements';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import firebasesApp from '../../component/firebaseConfig';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as firebase from 'firebase';
 
@@ -112,11 +101,6 @@ export default class Caterogies extends Component {
           value={filterData}
           onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
         />
-        {/* <TouchableOpacity style={styles.fill} onPress={this.filteData}>
-          <View>
-            <Icon name="search" color="#86C232" size={45} />
-          </View>
-        </TouchableOpacity> */}
         <FlatList
           data={value}
           renderItem={({item}) => (
@@ -130,28 +114,3 @@ export default class Caterogies extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  fillter: {
-    flexDirection: 'row',
-  },
-  input: {
-    paddingVertical: 10,
-    fontSize: wp('5%'),
-    borderWidth: 1,
-    opacity: 0.5,
-    color: '#474b4f',
-    borderRadius: 10,
-    paddingLeft: 10,
-    borderColor: '#6B6E70',
-    marginTop: wp('3%'),
-    marginLeft: wp('3%'),
-    width: wp('80%'),
-  },
-  fill: {
-    width: wp('15%'),
-    marginTop: wp('3%'),
-    height: wp('15%'),
-    margin: wp('1%'),
-  },
-});

@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Overlay} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import Button from 'react-native-button';
@@ -11,9 +12,9 @@ import {
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import Login from '../component/login/Login.user';
-import * as action from '../component/login/actions';
-import Manager from '../component/login/Manager.user';
+import Login from './Login.user';
+import * as action from './actions';
+// import Manager from './Manager.user';
 
 class User extends React.Component {
   constructor(props) {
@@ -47,16 +48,26 @@ class User extends React.Component {
               style={styles.btn}
               onPress={() => this.props.navigation.navigate('ManagerUser')}>
               Manager User
+              <Icon
+                name="chevron-right"
+                color="#4860F8"
+                size={30}
+                style={{marginRight: wp('3%')}}
+              />
             </Button>
-            <Button style={styles.btn}>My WishList</Button>
             <Button
               style={styles.btn}
               onPress={() => this.props.navigation.navigate('ManagerDrug')}>
               DrugStore Mode
+              <Icon
+                name="chevron-right"
+                color="#4860F8"
+                size={30}
+                style={{marginRight: wp('3%')}}
+              />
             </Button>
-            <Button style={styles.btn}>Change Password</Button>
             <Button
-              style={[styles.btn, styles.logout]}
+              style={styles.btn}
               onPress={() => this.props.actions.logout()}>
               LogOut
             </Button>
@@ -75,17 +86,12 @@ const styles = StyleSheet.create({
   },
   btn: {
     fontSize: 30,
-    // width: wp('100%'),
     color: '#000000',
-    // backgroundColor: '#86C232',
-    // borderRadius: 30,
-    borderBottomWidth: 1,
-    // color: '#FFFFFF',
+    // borderBottomWidth: 1,
     padding: wp('5%'),
     shadowOpacity: 0.5,
     shadowRadius: 3,
     marginVertical: wp('5%'),
-    // justifyContent: 'center',
   },
   locatedBtn: {
     width: wp('90%'),
