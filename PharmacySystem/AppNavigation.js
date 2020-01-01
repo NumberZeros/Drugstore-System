@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './screen/home/Home';
 import Caterogies from './screen/home/catergories';
 
-import Manager from './screen/ManagerDrug/Manager';
+import Manager from './screen/ManagerDrug/container';
 import AddDrug from './screen/ManagerDrug/AddDrug';
 
 import User from './component/login/User';

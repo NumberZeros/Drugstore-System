@@ -35,6 +35,7 @@ class AddDrug extends Component {
   }
   render() {
     console.log(JSON.stringify(this.state));
+    const {nameproduct, price, ngayhethan, shape, lo} = this.state;
     return (
       <ScrollView>
         <View style={styles.content}>
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
+    // paddingTop: hp('-3'),
     width: wp('70%'),
     height: hp('8%'),
   },

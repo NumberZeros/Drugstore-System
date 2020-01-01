@@ -2,7 +2,6 @@ import React from 'react';
 import {View, StyleSheet, FlatList, Text, ScrollView} from 'react-native';
 import Item from './Item.drug';
 
-import Icon from 'react-native-vector-icons/Ionicons';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -13,12 +12,12 @@ import Button from 'react-native-button';
 
 import {Card, SearchBar, Input} from 'react-native-elements';
 
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as action from './actions';
+// import {connect} from 'react-redux';
+// import {bindActionCreators} from 'redux';
+// import * as action from './actions';
 import * as firebase from 'firebase';
 
-class Manager extends React.Component {
+export default class Manager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,14 +59,8 @@ class Manager extends React.Component {
   }
   render() {
     const {value} = this.state;
-    console.log(this.props.ManagerDrug.action);
-    const {
-      nameproduct,
-      price,
-      lo,
-      ngayhethan,
-      shape,
-    } = this.props.ManagerDrug.item;
+    // console.log("prop",this.props);
+    const {isEdit, item} = this.props.ManagerDrug;
     if (this.props.Login.isCheck === true) {
       return (
         <View style={{flex: 1}}>
@@ -107,6 +100,90 @@ class Manager extends React.Component {
             )}
             keyExtractor={item => item.id.toString()}
           />
+          <Overlay isVisible={isEdit}>
+            <ScrollView>
+              <View style={styles.contentoverlay}>
+                <View style={{alignSelf: 'flex-start'}}>
+                  <Button
+                    style={styles.logout}
+                    // onPress={() => this.props.ManagerDrug.actions.updateData()}
+                  >
+                    <Icon
+                      name="chevron-left"
+                      color="#4860F8"
+                      size={30}
+                      style={{marginRight: wp('3%')}}
+                    />
+                  </Button>
+                </View>
+                <View style={styles.title}>
+                  <Text style={styles.textoverlay}>Name Product :</Text>
+                  <View style={styles.inpuOverlay}>
+                    <Input
+                      style={styles.inputOverlay}
+                      onChangeText={e => this.setState({nameproduct: e})}
+                      // returnKeyType="User Name"
+                      value={item.nameproduct}
+                    />
+                  </View>
+                </View>
+                <View style={styles.title}>
+                  <Text style={styles.textoverlay}>Price :</Text>
+                  <View style={styles.inputOverlay}>
+                    <Input
+                      style={styles.inputOverlay}
+                      onChangeText={e => this.setState({price: e})}
+                      // returnKeyType="User Name"
+                      value={item.price}
+                    />
+                  </View>
+                  <Text style={styles.money}>VND</Text>
+                </View>
+                <View style={styles.title}>
+                  <Text style={styles.textoverlay}>Dead date :</Text>
+                  <View style={styles.inputOverlay}>
+                    <Input
+                      style={styles.inputOverlay}
+                      onChangeText={e => this.setState({ngayhethan: e})}
+                      // returnKeyType="User Name"
+                      value={item.ngayhethan}
+                    />
+                  </View>
+                  <Text style={styles.money}>NMD</Text>
+                </View>
+                <View style={styles.title}>
+                  <Text style={styles.textoverlay}>Package :</Text>
+                  <View style={styles.inputOverlay}>
+                    <Input
+                      style={styles.inputOverlay}
+                      onChangeText={e => this.setState({lo: e})}
+                      // returnKeyType="User Name"
+                      value={item.lo}
+                    />
+                  </View>
+                  <Text style={styles.money}>Lô 1</Text>
+                </View>
+                <View style={styles.title}>
+                  <Text style={styles.textoverlay}>Shape :</Text>
+                  <View style={styles.inputOverlay}>
+                    <Input
+                      style={styles.inputOverlay}
+                      onChangeText={e => this.setState({shape: e})}
+                      // returnKeyType="User Name"
+                      value={item.shape}
+                    />
+                  </View>
+                </View>
+                <Button
+                  style={styles.btn}
+                  onPress={() => {
+                    // this.props.actions.AddDrug(this.state);
+                  }}>
+                  Update Product
+                </Button>
+              </View>
+            </ScrollView>
+          </Overlay>
         </View>
       );
     } else {
@@ -168,22 +245,69 @@ const styles = StyleSheet.create({
     width: wp('45%'),
     height: hp('8%'),
   },
+  inputOverlay: {
+    width: wp('70%'),
+    height: hp('8%'),
+  },
+  contentoverlay: {
+    // marginTop: hp('3%'),
+    flex: 1,
+    alignItems: 'center',
+  },
+  title: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    height: hp('10%'),
+    marginBottom: hp('5%'),
+  },
+  textoverlay: {
+    fontSize: wp('4%'),
+    paddingTop: hp('4%'),
+    width: wp('20 %'),
+    // marginLeft: wp('6%'),
+  },
+  btn: {
+    fontSize: 20,
+    width: wp('60'),
+    borderWidth: 1,
+    borderColor: '#86C232',
+    borderRadius: 30,
+    color: '#86C232',
+    padding: wp('5%'),
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    // marginVertical: wp('3%'),
+    // justifyContent: 'center',
+  },
+  logout: {
+    left: wp('30%'),
+    fontSize: 20,
+    width: wp('30%'),
+    marginRight: wp('50%'),
+  },
+  money: {
+    // borderWidth: 1,
+    marginHorizontal: wp('2%'),
+    fontSize: wp('4%'),
+    paddingTop: hp('4%'),
+    width: wp('10%'),
+  },
 });
 
-const mapStateToProps = state => {
-  return {
-    ...state,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     ...state,
+//   };
+// };
 
-function mapDispatchToProps(dispatch) {
-  const actions = {
-    ...action,
-  };
-  return {actions: bindActionCreators(actions, dispatch)};
-}
+// function mapDispatchToProps(dispatch) {
+//   const actions = {
+//     ...action,
+//   };
+//   return {actions: bindActionCreators(actions, dispatch)};
+// }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Manager);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(Manager);
