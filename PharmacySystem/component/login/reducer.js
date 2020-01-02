@@ -1,4 +1,3 @@
-import {Alert} from 'react-native';
 import * as actionType from './constant';
 
 import firebasesApp from '../firebaseConfig';
@@ -15,48 +14,14 @@ export const name = 'login';
 const handleAction = (state = initialState, action) => {
   switch (action.type) {
     case actionType.LOGIN: {
-      const {email, passWord} = action.data;
-      console.log(email, passWord);
-      let db = firebasesApp
-        .auth()
-        .signInWithEmailAndPassword(email, passWord)
-        .then()
-        .catch(function(error) {
-          Alert.alert('Vui lòng kiểm tra lại email hoặc password');
-          return error;
-        });
-      const user = firebasesApp.auth().currentUser;
-      // console.log('user',JSON.stringify(user));
-      if (user.email === email) {
-        db = firebase
-          .firestore()
-          .collection('User')
-          .doc(user.uid)
-          .get()
-          .then(function(doc) {
-            state.data.username = doc.data().username;
-            state.data.birthday = doc.data().birthday;
-            state.data.id = user.uid;
-            state.data.email = user.email;
-            if (doc.data().isStore === true) {
-              state.data.isStore = doc.data().isStore;
-              state.data.namestore = doc.data().DrugMode.namestore;
-              state.data.address = doc.data().DrugMode.address;
-              state.data.phone = doc.data().DrugMode.phone;
-            }
-            console.log('Document data:', state);
-          })
-          .catch(err => {
-            console.log('loi khong lay dc doccument', err);
-          });
-
-        return {
-          ...state,
-          data: state.data,
-          isCheck: !state.isCheck,
-        };
-      }
-      return state;
+      console.log("actions", action.data)
+      return {
+        ...state,
+        data: {
+          ...action.data,
+        },
+        isCheck: !state.isCheck,
+      };
     }
     case actionType.LOGOUT: {
       return {
@@ -66,6 +31,7 @@ const handleAction = (state = initialState, action) => {
       };
     }
     case actionType.CHECKLOGIN: {
+      // console.log('checklogin', state.data);
       let user = firebasesApp.auth().currentUser;
       let db = firebase
         .firestore()
@@ -88,12 +54,10 @@ const handleAction = (state = initialState, action) => {
                 .set(
                   {
                     email: user.email,
+                    isStore: false,
                   },
                   {merge: true},
                 )
-                .then(function() {
-                  //console.log('Document successfully written!');
-                })
                 .catch(function(error) {
                   console.error('Error writing document: ', error);
                 });

@@ -1,28 +1,21 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Overlay} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 
 import Button from 'react-native-button';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
 import Login from './Login.user';
-import * as action from './actions';
-// import Manager from './Manager.user';
 
-class User extends React.Component {
+export default class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       idAcount: '',
       gmail: '',
-      status: false,
     };
   }
 
@@ -33,14 +26,12 @@ class User extends React.Component {
   };
 
   render() {
-    const {idAcount, gmail, status} = this.state;
+    const {idAcount, gmail} = this.state;
     const {data, isCheck} = this.props.Login;
-    console.log('haha', JSON.stringify(this.props));
     return (
       <View style={styles.user}>
-        {status === true && this.props.navigation.navigate('Register')}
         {isCheck === false ? (
-          <Login {...this.props} createAccount={this.create} />
+          <Login {...this.props}/>
         ) : (
           //<Manager {...this.props} />
           <View style={styles.container}>
@@ -82,7 +73,6 @@ const styles = StyleSheet.create({
   user: {
     flex: 1,
     justifyContent: 'center',
-
   },
   btn: {
     fontSize: 30,
@@ -103,26 +93,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     width: wp('27%'),
   },
-  container: {
-    // flex: 1,
-    // marginLeft: wp('10%'),
-  },
 });
-
-const mapStateToProps = state => {
-  return {
-    ...state,
-  };
-};
-
-function mapDispatchToProps(dispatch) {
-  const actions = {
-    ...action,
-  };
-  return {actions: bindActionCreators(actions, dispatch)};
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(User);

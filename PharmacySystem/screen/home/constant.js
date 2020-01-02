@@ -1,3 +1,0 @@
-
-export const LOADDATA = 'HOME/LOADDATA';
-export const SEARCHDATA = 'HOME/SEARCHDATA';
