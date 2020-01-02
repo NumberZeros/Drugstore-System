@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
-import {connect} from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Input, Card} from 'react-native-elements';
 import Button from 'react-native-button';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import firebasesApp from '../firebaseConfig';
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,13 +22,56 @@ export default class Login extends Component {
     };
   }
 
-  create = () => {
-    const status = true;
-    this.props.createAccount(status);
+  login = () => {
+    const {email, passWord} = this.state.data;
+    console.log(this.state.data);
+    const that = this;
+    let db = firebasesApp
+      .auth()
+      .signInWithEmailAndPassword(email, passWord)
+      .then(() => {
+        const user = firebasesApp.auth().currentUser;
+        db = firebase
+          .firestore()
+          .collection('User')
+          .doc(user.uid)
+          .get()
+          .then(function(doc) {
+            if (doc.data().isStore === false) {
+              that.props.actions.login({
+                username: doc.data().username,
+                birthday: doc.data().birthday,
+                id: user.uid,
+                email: user.email,
+                isStore: false,
+                namestore: '',
+                address: '',
+                phone: '',
+              });
+            } else {
+              that.props.actions.login({
+                username: doc.data().username,
+                birthday: doc.data().birthday,
+                id: user.uid,
+                email: user.email,
+                isStore: doc.data().isStore,
+                namestore: doc.data().DrugMode.namestore,
+                address: doc.data().DrugMode.address,
+                phone: doc.data().DrugMode.phone,
+              });
+            }
+          })
+          .catch(err => {
+            console.log('loi khong lay dc doccument', err);
+          });
+      })
+      .catch(function(error) {
+        Alert.alert('Vui lòng kiểm tra lại email hoặc password');
+        return error;
+      });
   };
   render() {
     const {data} = this.state;
-    const {...actions} = this.props;
     return (
       <View>
         <Card>
@@ -70,13 +113,16 @@ export default class Login extends Component {
           <Button
             style={styles.btn}
             onPress={() => [
-              this.props.actions.login(data),
+              this.login(),
+              // this.props.actions.login(data),
               this.props.actions.checkLogin(),
             ]}>
             {' '}
             Login{' '}
           </Button>
-          <Button style={styles.btn} onPress={this.create}>
+          <Button
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate('Register')}>
             Register
           </Button>
         </View>

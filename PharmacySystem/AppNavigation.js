@@ -4,13 +4,12 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Home from './screen/home/Home';
-import Caterogies from './screen/home/catergories';
+import Manager from './component/ManagerDrug/container';
+import AddDrug from './component/ManagerDrug/AddDrug';
+import Home from './component/home/container';
+import Caterogies from './component/home/catergories';
 
-import Manager from './screen/ManagerDrug/container';
-import AddDrug from './screen/ManagerDrug/AddDrug';
-
-import User from './component/login/User';
+import User from './component/login/container';
 import Login from './component/login/Login.user';
 import Register from './screen/Register';
 import ManagerUser from './component/login/Manager.user';
