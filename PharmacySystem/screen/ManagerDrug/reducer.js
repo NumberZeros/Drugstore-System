@@ -9,7 +9,7 @@ import 'firebase/firestore';
 let initialState = {
   isEdit: false,
   data: [],
-  item: {}
+  items: {},
 };
 
 export default function handleAction(state = initialState, action) {
@@ -26,9 +26,6 @@ export default function handleAction(state = initialState, action) {
           shape: action.data.shape,
           lo: action.data.lo,
         })
-        .then(function(docRef) {
-          state.data = [];
-        })
         .catch(function(error) {
           console.error('Error adding document: ', error);
         });
@@ -44,37 +41,26 @@ export default function handleAction(state = initialState, action) {
         .doc(action.id)
         .delete()
         .then(Alert.alert('Delete Success'));
+      return {
+        ...state,
+        items: {},
+      };
     }
     case actionType.UPDATEDATA: {
-      console.log('data', JSON.stringify(action));
-      // db = firebase
-      //           .firestore()
-      //           .collection('User')
-      //           .doc(user.uid)
-      //           .set(
-      //             {
-      //               email: user.email,
-      //             },
-      //             {merge: true},
-      //           )
-      //           .then(function() {
-      //             //console.log('Document successfully written!');
-      //           })
-      //           .catch(function(error) {
-      //             console.error('Error writing document: ', error);
-      //           });
-      //       }
-      //     });
-      //   })
-      //   .catch(function(error) {
-      //     console.log('Error getting documents: ', error);
-      //   });
-      return{
+      return {
         ...state,
         isEdit: !state.isEdit,
-        item: action.data, 
+        items: action.data,
       };
-      return
+    }
+    case actionType.INPUTCHANGE: {
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [action.data.name]: action.data.value.e,
+        },
+      };
     }
     default:
       return state;

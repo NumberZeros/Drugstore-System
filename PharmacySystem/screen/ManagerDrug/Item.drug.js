@@ -27,10 +27,6 @@ export default class Item extends Component {
               'Delete item ',
               'Are you sure ?',
               [
-                // {
-                //   text: 'Ask me later',
-                //   onPress: () => console.log('Ask me later pressed'),
-                // },
                 {
                   text: 'Cancel',
                   onPress: () => console.log('Cancel Pressed'),
@@ -38,8 +34,8 @@ export default class Item extends Component {
                 },
                 {
                   text: 'OK',
-                  // onPress: () =>
-                  //   this.props.actions.deleteData(this.props.index),
+                  onPress: () =>
+                    this.props.actions.deleteData(this.props.index),
                 },
               ],
               {cancelable: false},
@@ -101,90 +97,6 @@ export default class Item extends Component {
             </View>
           </View>
         </Swipeout>
-        {/* <Overlay isVisible={isEdit}>
-          <ScrollView>
-            <View style={styles.contentoverlay}>
-              <View style={{alignSelf: 'flex-start'}}>
-                <Button
-                  style={styles.logout}
-                  // onPress={() => this.props.ManagerDrug.actions.updateData()}
-                >
-                  <Icon
-                    name="chevron-left"
-                    color="#4860F8"
-                    size={30}
-                    style={{marginRight: wp('3%')}}
-                  />
-                </Button>
-              </View>
-              <View style={styles.title}>
-                <Text style={styles.textoverlay}>Name Product :</Text>
-                <View style={styles.input}>
-                  <Input
-                    style={styles.input}
-                    onChangeText={e => this.setState({nameproduct: e})}
-                    // returnKeyType="User Name"
-                    value={item.nameproduct}
-                  />
-                </View>
-              </View>
-              <View style={styles.title}>
-                <Text style={styles.textoverlay}>Price :</Text>
-                <View style={styles.input}>
-                  <Input
-                    style={styles.input}
-                    onChangeText={e => this.setState({price: e})}
-                    // returnKeyType="User Name"
-                    value={item.price}
-                  />
-                </View>
-                <Text style={styles.money}>VND</Text>
-              </View>
-              <View style={styles.title}>
-                <Text style={styles.textoverlay}>Dead date :</Text>
-                <View style={styles.input}>
-                  <Input
-                    style={styles.input}
-                    onChangeText={e => this.setState({ngayhethan: e})}
-                    // returnKeyType="User Name"
-                    value={item.ngayhethan}
-                  />
-                </View>
-                <Text style={styles.money}>NMD</Text>
-              </View>
-              <View style={styles.title}>
-                <Text style={styles.textoverlay}>Package :</Text>
-                <View style={styles.input}>
-                  <Input
-                    style={styles.input}
-                    onChangeText={e => this.setState({lo: e})}
-                    // returnKeyType="User Name"
-                    value={item.lo}
-                  />
-                </View>
-                <Text style={styles.money}>Lô 1</Text>
-              </View>
-              <View style={styles.title}>
-                <Text style={styles.textoverlay}>Shape :</Text>
-                <View style={styles.input}>
-                  <Input
-                    style={styles.input}
-                    onChangeText={e => this.setState({shape: e})}
-                    // returnKeyType="User Name"
-                    value={item.shape}
-                  />
-                </View>
-              </View>
-              <Button
-                style={styles.btn}
-                onPress={() => {
-                  // this.props.actions.AddDrug(this.state);
-                }}>
-                Update Product
-              </Button>
-            </View>
-          </ScrollView>
-        </Overlay> */}
       </View>
     );
   }
@@ -205,17 +117,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   label: {
-    // padding: hp('1%'),
-    // flexDirection: 'row',
+    padding: hp('1%'),
+    flexDirection: 'row',
   },
   text: {
     fontSize: hp('2%'),
-  },
-  locatedBtn: {
-    width: wp('90%'),
-    justifyContent: 'center',
-    flexDirection: 'row',
-    // marginTop: hp('-10%'),
   },
   // input: {
   //   width: wp('70%'),

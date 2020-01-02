@@ -27,3 +27,10 @@ export function updateData(data) {
     data: data,
   };
 }
+
+export function handleInputChange(data) {
+  return {
+    type: CONST.INPUTCHANGE,
+    data,
+  };
+}

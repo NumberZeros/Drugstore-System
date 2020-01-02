@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, FlatList, Text, ScrollView} from 'react-native';
 import Item from './Item.drug';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
   widthPercentageToDP as wp,
@@ -27,7 +28,7 @@ export default class Manager extends React.Component {
 
   loadData() {
     const {id} = this.props.Login.data;
-    if (id !== undefined) {
+    if (id) {
       let db = firebase.firestore();
       var that = this;
       db.collection('Product')
@@ -51,16 +52,37 @@ export default class Manager extends React.Component {
     }
   }
 
+  updateData = items => {
+    // console.log('item', {...items});
+    let db = firebase
+      .firestore()
+      .collection('Product')
+      .doc(items.id)
+      .set(
+        {
+          ...items,
+        },
+        {merge: true},
+      )
+      .then(function() {
+        console.log('Document successfully written!');
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error);
+      });
+  };
+
   componentDidMount() {
     this.loadData();
+    //khi nao bao cao moi mo ham nay ra
     // setInterval(() => {
     //   this.loadData();
-    // }, 5000);
+    // }, 10000);
   }
   render() {
     const {value} = this.state;
-    // console.log("prop",this.props);
-    const {isEdit, item} = this.props.ManagerDrug;
+    const {isEdit, items} = this.props.ManagerDrug;
+    console.log('items', items);
     if (this.props.Login.isCheck === true) {
       return (
         <View style={{flex: 1}}>
@@ -100,90 +122,107 @@ export default class Manager extends React.Component {
             )}
             keyExtractor={item => item.id.toString()}
           />
-          <Overlay isVisible={isEdit}>
-            <ScrollView>
-              <View style={styles.contentoverlay}>
-                <View style={{alignSelf: 'flex-start'}}>
-                  <Button
-                    style={styles.logout}
-                    // onPress={() => this.props.ManagerDrug.actions.updateData()}
-                  >
-                    <Icon
-                      name="chevron-left"
-                      color="#4860F8"
-                      size={30}
-                      style={{marginRight: wp('3%')}}
-                    />
+          {isEdit && (
+            <Overlay isVisible={isEdit}>
+              <ScrollView>
+                <View style={styles.contentoverlay}>
+                  <View style={{alignSelf: 'flex-start'}}>
+                    <Button
+                      style={styles.logout}
+                      onPress={() => this.props.actions.updateData(items)}>
+                      <Icon
+                        name="chevron-left"
+                        color="#4860F8"
+                        size={30}
+                        style={{marginRight: wp('3%')}}
+                      />
+                    </Button>
+                  </View>
+                  <View style={styles.title}>
+                    <Text style={styles.textoverlay}>Name Product :</Text>
+                    <View style={styles.inputOverlay}>
+                      <Input
+                        style={styles.inputOverlay}
+                        onChangeText={e =>
+                          this.props.actions.handleInputChange({
+                            name: 'nameproduct',
+                            value: {e},
+                          })
+                        }
+                        value={items.nameproduct}
+                      />
+                    </View>
+                  </View>
+                  <View style={styles.title}>
+                    <Text style={styles.textoverlay}>Price :</Text>
+                    <View style={styles.inputOverlay}>
+                      <Input
+                        style={styles.inputOverlay}
+                        onChangeText={e =>
+                          this.props.actions.handleInputChange({
+                            name: 'price',
+                            value: {e},
+                          })
+                        }
+                        value={items.price}
+                      />
+                    </View>
+                    <Text style={styles.money}>VND</Text>
+                  </View>
+                  <View style={styles.title}>
+                    <Text style={styles.textoverlay}>Dead date :</Text>
+                    <View style={styles.inputOverlay}>
+                      <Input
+                        style={styles.inputOverlay}
+                        onChangeText={e =>
+                          this.props.actions.handleInputChange({
+                            name: 'ngayhethan',
+                            value: {e},
+                          })
+                        }
+                        value={items.ngayhethan}
+                      />
+                    </View>
+                    <Text style={styles.money}>NMD</Text>
+                  </View>
+                  <View style={styles.title}>
+                    <Text style={styles.textoverlay}>Package :</Text>
+                    <View style={styles.inputOverlay}>
+                      <Input
+                        style={styles.inputOverlay}
+                        onChangeText={e =>
+                          this.props.actions.handleInputChange({
+                            name: 'lo',
+                            value: {e},
+                          })
+                        }
+                        value={items.lo}
+                      />
+                    </View>
+                    <Text style={styles.money}>Lô 1</Text>
+                  </View>
+                  <View style={styles.title}>
+                    <Text style={styles.textoverlay}>Shape :</Text>
+                    <View style={styles.inputOverlay}>
+                      <Input
+                        style={styles.inputOverlay}
+                        onChangeText={e =>
+                          this.props.actions.handleInputChange({
+                            name: 'shape',
+                            value: {e},
+                          })
+                        }
+                        value={items.shape}
+                      />
+                    </View>
+                  </View>
+                  <Button style={styles.btn} onPress={this.updateData(items)}>
+                    Update Product
                   </Button>
                 </View>
-                <View style={styles.title}>
-                  <Text style={styles.textoverlay}>Name Product :</Text>
-                  <View style={styles.inpuOverlay}>
-                    <Input
-                      style={styles.inputOverlay}
-                      onChangeText={e => this.setState({nameproduct: e})}
-                      // returnKeyType="User Name"
-                      value={item.nameproduct}
-                    />
-                  </View>
-                </View>
-                <View style={styles.title}>
-                  <Text style={styles.textoverlay}>Price :</Text>
-                  <View style={styles.inputOverlay}>
-                    <Input
-                      style={styles.inputOverlay}
-                      onChangeText={e => this.setState({price: e})}
-                      // returnKeyType="User Name"
-                      value={item.price}
-                    />
-                  </View>
-                  <Text style={styles.money}>VND</Text>
-                </View>
-                <View style={styles.title}>
-                  <Text style={styles.textoverlay}>Dead date :</Text>
-                  <View style={styles.inputOverlay}>
-                    <Input
-                      style={styles.inputOverlay}
-                      onChangeText={e => this.setState({ngayhethan: e})}
-                      // returnKeyType="User Name"
-                      value={item.ngayhethan}
-                    />
-                  </View>
-                  <Text style={styles.money}>NMD</Text>
-                </View>
-                <View style={styles.title}>
-                  <Text style={styles.textoverlay}>Package :</Text>
-                  <View style={styles.inputOverlay}>
-                    <Input
-                      style={styles.inputOverlay}
-                      onChangeText={e => this.setState({lo: e})}
-                      // returnKeyType="User Name"
-                      value={item.lo}
-                    />
-                  </View>
-                  <Text style={styles.money}>Lô 1</Text>
-                </View>
-                <View style={styles.title}>
-                  <Text style={styles.textoverlay}>Shape :</Text>
-                  <View style={styles.inputOverlay}>
-                    <Input
-                      style={styles.inputOverlay}
-                      onChangeText={e => this.setState({shape: e})}
-                      // returnKeyType="User Name"
-                      value={item.shape}
-                    />
-                  </View>
-                </View>
-                <Button
-                  style={styles.btn}
-                  onPress={() => {
-                    // this.props.actions.AddDrug(this.state);
-                  }}>
-                  Update Product
-                </Button>
-              </View>
-            </ScrollView>
-          </Overlay>
+              </ScrollView>
+            </Overlay>
+          )}
         </View>
       );
     } else {
@@ -246,11 +285,11 @@ const styles = StyleSheet.create({
     height: hp('8%'),
   },
   inputOverlay: {
-    width: wp('70%'),
+    width: wp('45%'),
     height: hp('8%'),
   },
   contentoverlay: {
-    // marginTop: hp('3%'),
+    marginTop: hp('3%'),
     flex: 1,
     alignItems: 'center',
   },
