@@ -12,11 +12,18 @@ export function loadData(id) {
     type: CONST.LOADDATA,
     id: id,
   };
+};
+
+export function deleteData(id) {
+  return {
+    type: CONST.DELETE,
+    id: id,
+  };
 }
 
-export function loadDataSuccess(data) {
+export function updateData(data) {
   return {
-    type: CONST.LOADDATASUCCESS,
+    type: CONST.UPDATEDATA,
     data: data,
   };
 }

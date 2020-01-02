@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons/Entypo';
 import {
@@ -33,99 +33,106 @@ class AddDrug extends Component {
       namestore,
     });
   }
-  test = () => {
-    console.log(
-      'state',
-      JSON.stringify(this.state) + '\nprop: ' + JSON.stringify(this.props),
-    );
-  };
   render() {
-    const {nameproduct, price, lo, ngayhethan, shape} = this.state;
     console.log(JSON.stringify(this.state));
+    const {nameproduct, price, ngayhethan, shape, lo} = this.state;
     return (
-      <View style={styles.content}>
-        <View style={{alignSelf: 'flex-start'}}>
+      <ScrollView>
+        <View style={styles.content}>
+          <View style={{alignSelf: 'flex-start'}}>
+            <Button
+              style={styles.logout}
+              onPress={() =>
+                this.props.navigation.navigate('Manager', {isload: true})
+              }>
+              <Icon
+                name="chevron-left"
+                color="#4860F8"
+                size={30}
+                style={{marginRight: wp('3%')}}
+              />
+            </Button>
+          </View>
+          <View style={styles.title}>
+            <Text style={styles.text}>Name Product :</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({nameproduct: e})}
+                // returnKeyType="User Name"
+                value={nameproduct}
+              />
+            </View>
+          </View>
+          <View style={styles.title}>
+            <Text style={styles.text}>Price :</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({price: e})}
+                // returnKeyType="User Name"
+                value={price}
+              />
+            </View>
+            <Text style={styles.money}>VND</Text>
+          </View>
+          <View style={styles.title}>
+            <Text style={styles.text}>Dead date :</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({ngayhethan: e})}
+                // returnKeyType="User Name"
+                value={ngayhethan}
+              />
+            </View>
+            <Text style={styles.money}>NMD</Text>
+          </View>
+          <View style={styles.title}>
+            <Text style={styles.text}>Package :</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({lo: e})}
+                // returnKeyType="User Name"
+                value={lo}
+              />
+            </View>
+            <Text style={styles.money}>Lô 1</Text>
+          </View>
+          <View style={styles.title}>
+            <Text style={styles.text}>Shape :</Text>
+            <View style={styles.input}>
+              <Input
+                style={styles.input}
+                onChangeText={e => this.setState({shape: e})}
+                // returnKeyType="User Name"
+                value={shape}
+              />
+            </View>
+          </View>
           <Button
-            style={styles.logout}
-            onPress={() => this.props.navigation.goBack()}>
-            <Icon
-              name="chevron-left"
-              color="#4860F8"
-              size={30}
-              style={{marginRight: wp('3%')}}
-            />
+            style={styles.btn}
+            onPress={() => {
+              this.props.actions.AddDrug(this.state);
+              this.setState({
+                nameproduct: '',
+                price: 0,
+                id: '',
+                namestore: '',
+                ngayhethan: '',
+                shape: '',
+                lo: '',
+              });
+            }}>
+            Add Product
           </Button>
-        </View>
-        <View style={styles.title}>
-          <Text style={styles.text}>Name Product :</Text>
-          <View style={styles.input}>
-            <Input
-              style={styles.input}
-              onChangeText={e => this.setState({nameproduct: e})}
-              // returnKeyType="User Name"
-              value={nameproduct}
-            />
-          </View>
-        </View>
-        <View style={styles.title}>
-          <Text style={styles.text}>Price :</Text>
-          <View style={styles.input}>
-            <Input
-              style={styles.input}
-              onChangeText={e => this.setState({price: e})}
-              // returnKeyType="User Name"
-              value={price}
-            />
-          </View>
-          <Text style={styles.money}>VND</Text>
-        </View>
-        <View style={styles.title}>
-          <Text style={styles.text}>Dead date :</Text>
-          <View style={styles.input}>
-            <Input
-              style={styles.input}
-              onChangeText={e => this.setState({ngayhethan: e})}
-              // returnKeyType="User Name"
-              value={ngayhethan}
-            />
-          </View>
-          <Text style={styles.money}>NMD</Text>
-
-        </View>
-        <View style={styles.title}>
-          <Text style={styles.text}>Package :</Text>
-          <View style={styles.input}>
-            <Input
-              style={styles.input}
-              onChangeText={e => this.setState({lo: e})}
-              // returnKeyType="User Name"
-              value={lo}
-            />
-          </View>
-          <Text style={styles.money}>Lô 1</Text>
-
-        </View>
-        <View style={styles.title}>
-          <Text style={styles.text}>Shape :</Text>
-          <View style={styles.input}>
-            <Input
-              style={styles.input}
-              onChangeText={e => this.setState({shape: e})}
-              // returnKeyType="User Name"
-              value={shape}
-            />
-          </View>
-        </View>
-        <Button
-          style={styles.btn}
-          onPress={() => this.props.actions.AddDrug(this.state)}>
-          Add Product
-        </Button>
-        {/* <Button style={[styles.btn, styles.logout]} onPress={this.test}>
+          {/* <Button style={[styles.btn, styles.logout]} onPress={this.test}>
             test
           </Button>
         </View> */}
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -138,6 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
+    // paddingTop: hp('-3'),
     width: wp('70%'),
     height: hp('8%'),
   },
