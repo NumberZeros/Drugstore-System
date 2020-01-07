@@ -101,19 +101,7 @@ class ManagerUser extends Component {
           </Button>
         </View>
         <TouchableOpacity style={styles.headIcon} onPress={this.SelectImage}>
-          {/* <Icon
-            name="user"
-            color="#86C232"
-            size={wp('30%')}
-          /> */}
-          <Avatar
-            //source={{uri: this.state.avatarSource}}
-            rounded
-            //icon={{name: 'user'}}
-            //color="#86C232"
-            source={{uri: this.state.avatar}}
-            size={wp('35%')}
-          />
+          <Avatar rounded source={{uri: this.state.avatar}} size={wp('35%')} />
         </TouchableOpacity>
         <View style={styles.title}>
           <Text style={styles.text}>User Name:</Text>

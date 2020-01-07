@@ -12,7 +12,7 @@ import {
 
 export default class Item extends Component {
   render() {
-    const {Id, nameproduct, namestore, price, image} = this.props.data;
+    const {Id, nameproduct, namestore, price, image, avatar} = this.props.data;
     return (
       <View style={styles.item}>
         <View style={styles.image}>
@@ -27,7 +27,7 @@ export default class Item extends Component {
               <Image
                 style={{width: wp('30%'), height: hp('18%')}}
                 source={{
-                  uri: 'https://dummyimage.com/150x150.jpg/cc0000/ffffff',
+                  uri: avatar,
                 }}
                 PlaceholderContent={<ActivityIndicator />}
               />
