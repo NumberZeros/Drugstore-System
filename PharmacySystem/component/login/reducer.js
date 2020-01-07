@@ -14,7 +14,7 @@ export const name = 'login';
 const handleAction = (state = initialState, action) => {
   switch (action.type) {
     case actionType.LOGIN: {
-      console.log("actions", action.data)
+      console.log('actions', action.data);
       return {
         ...state,
         data: {
@@ -33,36 +33,40 @@ const handleAction = (state = initialState, action) => {
     case actionType.CHECKLOGIN: {
       // console.log('checklogin', state.data);
       let user = firebasesApp.auth().currentUser;
+      let newUser = true;
       let db = firebase
         .firestore()
         .collection('User')
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(doc => {
-            //khi thực hiện thì nó sẽ trả về 2 thuộc tính id và data
-            // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
             if (doc.id === user.uid) {
-              return {
-                ...state,
-                // isAcount: true,
-              };
-            } else {
-              db = firebase
-                .firestore()
-                .collection('User')
-                .doc(user.uid)
-                .set(
-                  {
-                    email: user.email,
-                    isStore: false,
-                  },
-                  {merge: true},
-                )
-                .catch(function(error) {
-                  console.error('Error writing document: ', error);
-                });
+              newUser = false;
+              // return {
+              //   ...state,
+              //   // isAcount: true,
+              // };
             }
           });
+          if (newUser === true) {
+            db = firebase
+              .firestore()
+              .collection('User')
+              .doc(user.uid)
+              .set(
+                {
+                  email: user.email,
+                  isStore: false,
+                  avatar:
+                    'https://firebasestorage.googleapis.com/v0/b/testfirebase-dbd0c.appspot.com/o/user.png?alt=media&token=3a3b0b23-a790-451a-8315-eb140352af7a',
+                  path: 'user.png',
+                },
+                {merge: true},
+              )
+              .catch(function(error) {
+                console.error('Error writing document: ', error);
+              });
+          }
         })
         .catch(function(error) {
           console.log('Error getting documents: ', error);
@@ -72,37 +76,51 @@ const handleAction = (state = initialState, action) => {
       };
     }
     case actionType.UPDATEINFO: {
-      // console.log(action.data);
-      let db = firebase
-        .firestore()
-        .collection('User')
-        .doc(action.data.id)
-        .set(
-          {
-            username: action.data.username,
-            birthday: action.data.birthday,
-          },
-          {merge: true},
-        )
-        .then(function() {
-          const user = firebasesApp.auth().currentUser;
-          db = firebase
+      firebasesApp
+        .storage()
+        .ref(action.data.path)
+        .getDownloadURL()
+        .then(function(url) {
+          //console.log('asd' + url);
+          let db = firebase
             .firestore()
             .collection('User')
-            .doc(user.uid)
-            .get()
-            .then(function(doc) {
-              state.data.username = doc.data().username;
-              state.data.birthday = doc.data().birthday;
-              console.log('load document data:', state);
+            .doc(action.data.id)
+            .set(
+              {
+                username: action.data.username,
+                birthday: action.data.birthday,
+                path: action.data.path,
+                avatar: url,
+              },
+              {merge: true},
+            )
+            .then(function() {
+              const user = firebasesApp.auth().currentUser;
+              db = firebase
+                .firestore()
+                .collection('User')
+                .doc(user.uid)
+                .get()
+                .then(function(doc) {
+                  state.data.username = doc.data().username;
+                  state.data.birthday = doc.data().birthday;
+                  state.data.url = doc.data().path;
+                  state.data.avatar = doc.data().avatar;
+                  console.log('load document data:', state);
+                })
+                .catch(err => {
+                  console.log('loi khong lay dc doccument', err);
+                });
             })
-            .catch(err => {
-              console.log('loi khong lay dc doccument', err);
+            .catch(function(error) {
+              console.error('Error writing document: ', error);
             });
         })
         .catch(function(error) {
-          console.error('Error writing document: ', error);
+          console.log('loi' + error.code);
         });
+
       return state;
     }
     case actionType.UPDATEDRUG: {

@@ -75,9 +75,9 @@ export default class Manager extends React.Component {
   componentDidMount() {
     this.loadData();
     //khi nao bao cao moi mo ham nay ra
-    setInterval(() => {
-      this.loadData();
-    }, 10000);
+    // setInterval(() => {
+    //   this.loadData();
+    // }, 10000);
   }
   render() {
     const {value} = this.state;

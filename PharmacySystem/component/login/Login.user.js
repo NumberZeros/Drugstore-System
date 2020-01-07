@@ -37,13 +37,15 @@ export default class Login extends Component {
           .doc(user.uid)
           .get()
           .then(function(doc) {
-            if (doc.data().isStore === false) {
+            if (doc.data().isStore !== true) {
               that.props.actions.login({
                 username: doc.data().username,
                 birthday: doc.data().birthday,
+                avatar: doc.data().avatar,
+                path: doc.data().path,
                 id: user.uid,
                 email: user.email,
-                isStore: false,
+                isStore: doc.data().isStore,
                 namestore: '',
                 address: '',
                 phone: '',
@@ -52,6 +54,8 @@ export default class Login extends Component {
               that.props.actions.login({
                 username: doc.data().username,
                 birthday: doc.data().birthday,
+                avatar: doc.data().avatar,
+                path: doc.data().path,
                 id: user.uid,
                 email: user.email,
                 isStore: doc.data().isStore,

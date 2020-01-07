@@ -65,17 +65,17 @@ export default class Register extends Component {
     const {email, passWord} = this.state.value;
     console.log(email, passWord);
     // Add a new document with a generated id.
-    let db = firebase.firestore();
-    db.collection('User')
-      .add({
-        email,
-      })
-      .then(function(docRef) {
-        console.log('Document written with ID: ', docRef.id);
-      })
-      .catch(function(error) {
-        console.error('Error adding document: ', error);
-      });
+    // let db = firebase.firestore();
+    // db.collection('User')
+    //   .add({
+    //     email,
+    //   })
+    //   .then(function(docRef) {
+    //     console.log('Document written with ID: ', docRef.id);
+    //   })
+    //   .catch(function(error) {
+    //     console.error('Error adding document: ', error);
+    //   });
 
     firebasesApp
       .auth()
@@ -85,17 +85,17 @@ export default class Register extends Component {
           `Tạo ${email} thành công `,
           'Cám ơn quí kháckh',
           [
-            {
-              text: 'Cancel',
-              onPress: () =>
-                this.setState({
-                  value: {
-                    email: '',
-                    passWord: '',
-                  },
-                }),
-              style: 'cancel',
-            },
+            // {
+            //   text: 'Cancel',
+            //   onPress: () =>
+            //     this.setState({
+            //       value: {
+            //         email: '',
+            //         passWord: '',
+            //       },
+            //     }),
+            //   style: 'cancel',
+            // },
             {
               text: 'OK',
               onPress: () => this.props.navigation.goBack(),
