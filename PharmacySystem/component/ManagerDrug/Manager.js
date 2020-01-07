@@ -12,10 +12,6 @@ import {Overlay} from 'react-native-elements';
 import Button from 'react-native-button';
 
 import {Card, SearchBar, Input} from 'react-native-elements';
-
-// import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
-// import * as action from './actions';
 import * as firebase from 'firebase';
 
 export default class Manager extends React.Component {
@@ -87,16 +83,6 @@ export default class Manager extends React.Component {
       return (
         <View style={{flex: 1}}>
           <View>
-            {/* <View style={{flexGrow: 1}}>
-              <SearchBar
-                placeholder="Type Here..."
-                onChangeText={e => this.setState({filterData: e})}
-                returnKeyType="search"
-                // onChangeText={this.filteData}
-                // value={filterData}
-                // onSubmitEditing={Keyboard.dismiss} //thực hiện submit sẽ tự động đóng keybroad
-              />
-            </View> */}
             <View style={{flexGrow: 0}}>
               <Button
                 style={{
@@ -113,12 +99,10 @@ export default class Manager extends React.Component {
             </View>
           </View>
           <FlatList
-            //style={styles.flatList}
             data={value}
             renderItem={({item, index}) => (
               // <Card>
               <Item data={item} index={item.id} {...this.props} />
-              // </Card>
             )}
             keyExtractor={item => item.id.toString()}
           />
