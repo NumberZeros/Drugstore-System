@@ -15,19 +15,29 @@ let initialState = {
 export default function handleAction(state = initialState, action) {
   switch (action.type) {
     case actionType.ADDDRUG: {
-      let db = firebase.firestore();
-      db.collection('Product')
-        .add({
-          nameproduct: action.data.nameproduct,
-          price: action.data.price,
-          idStore: action.data.id,
-          namestore: action.data.namestore,
-          ngayhethan: action.data.ngayhethan,
-          shape: action.data.shape,
-          lo: action.data.lo,
+      firebasesApp
+        .storage()
+        .ref(action.data.path)
+        .getDownloadURL()
+        .then(function(url) {
+          let db = firebase.firestore();
+          db.collection('Product')
+            .add({
+              nameproduct: action.data.nameproduct,
+              price: action.data.price,
+              idStore: action.data.id,
+              namestore: action.data.namestore,
+              ngayhethan: action.data.ngayhethan,
+              shape: action.data.shape,
+              lo: action.data.lo,
+              avatar: action.data.avatar,
+            })
+            .catch(function(error) {
+              console.error('Error adding document: ', error);
+            });
         })
         .catch(function(error) {
-          console.error('Error adding document: ', error);
+          console.error('Error writing document: ', error);
         });
       return {
         ...state,

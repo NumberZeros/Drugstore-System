@@ -16,7 +16,7 @@ import {
 
 export default class Item extends Component {
   render() {
-    const {id, nameproduct, namestore, price, image} = this.props.data;
+    const {id, nameproduct, namestore, price, image, avatar} = this.props.data;
     const swipeSetting = {
       autoClose: true,
       onClose: (secId, rowId, direction) => {},
@@ -74,7 +74,7 @@ export default class Item extends Component {
                   <Image
                     style={{width: wp('30%'), height: hp('18%')}}
                     source={{
-                      uri: 'https://dummyimage.com/150x150.jpg/cc0000/ffffff',
+                      uri: avatar,
                     }}
                     PlaceholderContent={<ActivityIndicator />}
                   />
